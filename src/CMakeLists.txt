@@ -1,5 +1,5 @@
 
-SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O0 -g")
+SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O2 -g")
 
 SET(lemon_parser_sources
     parse.c
