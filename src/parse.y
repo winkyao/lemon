@@ -623,6 +623,10 @@ cmd ::= insert_cmd(R) INTO fullname(X) inscollist_opt(F)
         SET setlist(SL). 
             {sqlite3Insert(pParse, X, SL, 0, 0, F, R);}
 
+cmd ::= insert_cmd(R) fullname(X) inscollist_opt(F)
+        SET setlist(SL). 
+            {sqlite3Insert(pParse, X, SL, 0, 0, F, R);}
+
 cmd ::= insert_cmd(R) INTO fullname(X) inscollist_opt(F) select(S).
             {sqlite3Insert(pParse, X, 0, 0, S, F, R);}
 

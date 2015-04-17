@@ -885,6 +885,10 @@ TEST_F(LemonTest, testInsertSetList) {
     EXPECT_STREQ("id", insertObj->pSetList->a[0].zName);
     EXPECT_STREQ("name", insertObj->pSetList->a[1].zName);
     sqlite3ParsedResultArrayClean(&parseObj_->parsed);
+
+    /* from tcpcopy*/
+    errNum = sqlite3RunParser(parseObj_, "insert yp_xiangce.xiangce_82 set xid = '37433782' ,cqid = '1453989997' ,name = 'QQ_Images' ,remark = '' ,ctime = '1429259429' ,\                                                                        `type` = '2' ,`join` = '0' ,longitude = '0' ,latitude = '0' ,recover = '0' ,photocount = '0' ,readonly = '0' ,nearby = '0'", &errMsg);
+    ASSERT_TRUE(errMsg == NULL) << "error: " << errMsg << ", error_code: " << parseObj_->rc;
 }
 
 TEST_F(LemonTest, testReplaceValues) {
