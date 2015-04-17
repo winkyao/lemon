@@ -640,6 +640,7 @@ insert_cmd(A) ::= REPLACE.            {A = OE_Replace;}
 
 valueslist(VL) ::= valueslist(V) COMMA LP itemlist(Y) RP.   { VL = sqlite3ValuesListAppend(V, Y);}
 valueslist(VL) ::= LP itemlist(Y) RP.                       { VL = sqlite3ValuesListAppend(0, Y); }
+valueslist(VL) ::= LP RP.                                   { VL = 0; }
 
 %type itemlist {ExprList*}
 %destructor itemlist {sqlite3ExprListDelete($$);}
@@ -653,10 +654,11 @@ itemlist(A) ::= expr(X).                    {A = sqlite3ExprListAppend(0,X,0);}
 %destructor inscollist {sqlite3IdListDelete($$);}
 
 inscollist_opt(A) ::= .                       {A = 0;}
+inscollist_opt(A) ::= LP RP.                  {A = 0;}
 inscollist_opt(A) ::= LP inscollist(X) RP.    {A = X;}
 inscollist(A) ::= inscollist(X) COMMA nm(Y).  {A = sqlite3IdListAppend(X,&Y);}
 inscollist(A) ::= nm(Y).                      {A = sqlite3IdListAppend(0,&Y);}
-
+                           
 /////////////////////////// Expression Processing /////////////////////////////
 //
 

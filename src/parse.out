@@ -11,8 +11,8 @@
                           SEMI shift  314
                        EXPLAIN shift  311
                          input accept
-                       cmdlist shift  103
-                          ecmd shift  487
+                       cmdlist shift  104
+                          ecmd shift  489
                        explain shift  1
                      {default} reduce 6
 
@@ -52,10 +52,10 @@ State 1:
                       ROLLBACK shift  182
                         CREATE shift  216
                            SET shift  100
-                       REPLACE shift  471
+                       REPLACE shift  473
                         DELETE shift  296
-                        UPDATE shift  110
-                        INSERT shift  470
+                        UPDATE shift  111
+                        INSERT shift  472
                           DROP shift  294
                         SELECT shift  163
                           SHOW shift  159
@@ -65,8 +65,8 @@ State 1:
                         select shift  156
                      oneselect shift  353
                     insert_cmd shift  102
-                  show_databes shift  480
-                   show_tables shift  481
+                  show_databes shift  482
+                   show_tables shift  483
 
 State 2:
           nm ::= * ID
@@ -119,7 +119,7 @@ State 2:
           exprlist ::= * exprlist COMMA expritem
           exprlist ::= * expritem
           expritem ::= * expr
-    (235) expritem ::= *
+    (237) expritem ::= *
 
                            NOT shift  63
                         EXISTS shift  271
@@ -140,7 +140,7 @@ State 2:
                       REGISTER shift  359
                       VARIABLE shift  360
                      VARIABLE1 shift  361
-                          CASE shift  10
+                          CASE shift  11
                             nm shift  263
                         select shift  129
                           term shift  352
@@ -148,7 +148,7 @@ State 2:
                      oneselect shift  353
                       exprlist shift  240
                       expritem shift  394
-                     {default} reduce 235
+                     {default} reduce 237
 
 State 3:
           ids ::= * ID|STRING
@@ -283,7 +283,7 @@ State 4:
                       REGISTER shift  359
                       VARIABLE shift  360
                      VARIABLE1 shift  361
-                          CASE shift  10
+                          CASE shift  11
                             nm shift  263
                         select shift  127
                           term shift  352
@@ -337,7 +337,7 @@ State 5:
           exprlist ::= * exprlist COMMA expritem
           exprlist ::= * expritem
           expritem ::= * expr
-    (235) expritem ::= *
+    (237) expritem ::= *
 
                            NOT shift  63
                         EXISTS shift  271
@@ -357,13 +357,13 @@ State 5:
                       REGISTER shift  359
                       VARIABLE shift  360
                      VARIABLE1 shift  361
-                          CASE shift  10
+                          CASE shift  11
                             nm shift  263
                           term shift  352
                           expr shift  29
                       exprlist shift  242
                       expritem shift  394
-                     {default} reduce 235
+                     {default} reduce 237
 
 State 6:
           nm ::= * ID
@@ -431,7 +431,7 @@ State 6:
                       REGISTER shift  359
                       VARIABLE shift  360
                      VARIABLE1 shift  361
-                          CASE shift  10
+                          CASE shift  11
                             nm shift  263
                           term shift  352
                           expr shift  35
@@ -485,7 +485,7 @@ State 7:
           exprlist ::= * exprlist COMMA expritem
           exprlist ::= * expritem
           expritem ::= * expr
-    (235) expritem ::= *
+    (237) expritem ::= *
 
                            NOT shift  63
                         EXISTS shift  271
@@ -505,13 +505,13 @@ State 7:
                       REGISTER shift  359
                       VARIABLE shift  360
                      VARIABLE1 shift  361
-                          CASE shift  10
+                          CASE shift  11
                             nm shift  263
                           term shift  352
                           expr shift  29
                       exprlist shift  276
                       expritem shift  394
-                     {default} reduce 235
+                     {default} reduce 237
 
 State 8:
           columnlist ::= columnlist COMMA * column
@@ -568,6 +568,10 @@ State 10:
           nm ::= * ID
           nm ::= * STRING
           nm ::= * JOIN_KW
+          valueslist ::= LP * itemlist RP
+          valueslist ::= LP * RP
+          itemlist ::= * itemlist COMMA expr
+          itemlist ::= * expr
           expr ::= * term
           expr ::= * LP expr RP
           term ::= * NULL
@@ -607,13 +611,11 @@ State 10:
           expr ::= * expr in_op nm dbnm
           expr ::= * EXISTS LP select RP
           expr ::= * CASE case_operand case_exprlist case_else END
-          expr ::= CASE * case_operand case_exprlist case_else END
-          case_operand ::= * expr
-    (231) case_operand ::= *
 
                            NOT shift  63
                         EXISTS shift  271
                             LP shift  4
+                            RP shift  469
                             ID shift  237
                           CAST shift  265
                       CTIME_KW shift  374
@@ -629,12 +631,11 @@ State 10:
                       REGISTER shift  359
                       VARIABLE shift  360
                      VARIABLE1 shift  361
-                          CASE shift  10
+                          CASE shift  11
                             nm shift  263
                           term shift  352
-                          expr shift  30
-                  case_operand shift  197
-                     {default} reduce 231
+                          expr shift  42
+                      itemlist shift  248
 
 State 11:
           nm ::= * ID
@@ -679,9 +680,9 @@ State 11:
           expr ::= * expr in_op nm dbnm
           expr ::= * EXISTS LP select RP
           expr ::= * CASE case_operand case_exprlist case_else END
-          exprlist ::= exprlist COMMA * expritem
-          expritem ::= * expr
-    (235) expritem ::= *
+          expr ::= CASE * case_operand case_exprlist case_else END
+          case_operand ::= * expr
+    (233) case_operand ::= *
 
                            NOT shift  63
                         EXISTS shift  271
@@ -701,14 +702,86 @@ State 11:
                       REGISTER shift  359
                       VARIABLE shift  360
                      VARIABLE1 shift  361
-                          CASE shift  10
+                          CASE shift  11
+                            nm shift  263
+                          term shift  352
+                          expr shift  30
+                  case_operand shift  197
+                     {default} reduce 233
+
+State 12:
+          nm ::= * ID
+          nm ::= * STRING
+          nm ::= * JOIN_KW
+          expr ::= * term
+          expr ::= * LP expr RP
+          term ::= * NULL
+          expr ::= * ID
+          expr ::= * JOIN_KW
+          expr ::= * nm DOT nm
+          expr ::= * nm DOT nm DOT nm
+          term ::= * INTEGER|FLOAT|BLOB
+          term ::= * STRING
+          expr ::= * REGISTER
+          expr ::= * VARIABLE
+          expr ::= * VARIABLE1
+          expr ::= * CAST LP expr AS typetoken RP
+          expr ::= * ID LP distinct exprlist RP
+          expr ::= * ID LP STAR RP
+          term ::= * CTIME_KW
+          expr ::= * expr AND expr
+          expr ::= * expr OR expr
+          expr ::= * expr LT|GT|GE|LE expr
+          expr ::= * expr EQ|NE expr
+          expr ::= * expr BITAND|BITOR|LSHIFT|RSHIFT expr
+          expr ::= * expr PLUS|MINUS expr
+          expr ::= * expr STAR|SLASH|REM expr
+          expr ::= * expr CONCAT expr
+          expr ::= * expr likeop expr escape
+          expr ::= * expr ISNULL|NOTNULL
+          expr ::= * expr IS NULL
+          expr ::= * expr NOT NULL
+          expr ::= * expr IS NOT NULL
+          expr ::= * NOT|BITNOT expr
+          expr ::= * MINUS expr
+          expr ::= * PLUS expr
+          expr ::= * expr between_op between_elem AND between_elem
+          expr ::= * expr in_op LP exprlist RP
+          expr ::= * LP select RP
+          expr ::= * expr in_op LP select RP
+          expr ::= * expr in_op nm dbnm
+          expr ::= * EXISTS LP select RP
+          expr ::= * CASE case_operand case_exprlist case_else END
+          exprlist ::= exprlist COMMA * expritem
+          expritem ::= * expr
+    (237) expritem ::= *
+
+                           NOT shift  63
+                        EXISTS shift  271
+                            LP shift  4
+                            ID shift  237
+                          CAST shift  265
+                      CTIME_KW shift  374
+                          PLUS shift  65
+                         MINUS shift  64
+                        BITNOT shift  63
+                        STRING shift  261
+                       JOIN_KW shift  262
+                          NULL shift  356
+                       INTEGER shift  358
+                         FLOAT shift  358
+                          BLOB shift  358
+                      REGISTER shift  359
+                      VARIABLE shift  360
+                     VARIABLE1 shift  361
+                          CASE shift  11
                             nm shift  263
                           term shift  352
                           expr shift  29
                       expritem shift  393
-                     {default} reduce 235
+                     {default} reduce 237
 
-State 12:
+State 13:
           nm ::= * ID
           nm ::= * STRING
           nm ::= * JOIN_KW
@@ -772,13 +845,13 @@ State 12:
                       REGISTER shift  359
                       VARIABLE shift  360
                      VARIABLE1 shift  361
-                          CASE shift  10
+                          CASE shift  11
                             nm shift  263
                           term shift  352
                           expr shift  35
                       sortitem shift  199
 
-State 13:
+State 14:
           nm ::= * ID
           nm ::= * STRING
           nm ::= * JOIN_KW
@@ -843,82 +916,11 @@ State 13:
                       REGISTER shift  359
                       VARIABLE shift  360
                      VARIABLE1 shift  361
-                          CASE shift  10
+                          CASE shift  11
                             nm shift  263
                           term shift  352
                           expr shift  42
                       itemlist shift  247
-
-State 14:
-          nm ::= * ID
-          nm ::= * STRING
-          nm ::= * JOIN_KW
-          valueslist ::= LP * itemlist RP
-          itemlist ::= * itemlist COMMA expr
-          itemlist ::= * expr
-          expr ::= * term
-          expr ::= * LP expr RP
-          term ::= * NULL
-          expr ::= * ID
-          expr ::= * JOIN_KW
-          expr ::= * nm DOT nm
-          expr ::= * nm DOT nm DOT nm
-          term ::= * INTEGER|FLOAT|BLOB
-          term ::= * STRING
-          expr ::= * REGISTER
-          expr ::= * VARIABLE
-          expr ::= * VARIABLE1
-          expr ::= * CAST LP expr AS typetoken RP
-          expr ::= * ID LP distinct exprlist RP
-          expr ::= * ID LP STAR RP
-          term ::= * CTIME_KW
-          expr ::= * expr AND expr
-          expr ::= * expr OR expr
-          expr ::= * expr LT|GT|GE|LE expr
-          expr ::= * expr EQ|NE expr
-          expr ::= * expr BITAND|BITOR|LSHIFT|RSHIFT expr
-          expr ::= * expr PLUS|MINUS expr
-          expr ::= * expr STAR|SLASH|REM expr
-          expr ::= * expr CONCAT expr
-          expr ::= * expr likeop expr escape
-          expr ::= * expr ISNULL|NOTNULL
-          expr ::= * expr IS NULL
-          expr ::= * expr NOT NULL
-          expr ::= * expr IS NOT NULL
-          expr ::= * NOT|BITNOT expr
-          expr ::= * MINUS expr
-          expr ::= * PLUS expr
-          expr ::= * expr between_op between_elem AND between_elem
-          expr ::= * expr in_op LP exprlist RP
-          expr ::= * LP select RP
-          expr ::= * expr in_op LP select RP
-          expr ::= * expr in_op nm dbnm
-          expr ::= * EXISTS LP select RP
-          expr ::= * CASE case_operand case_exprlist case_else END
-
-                           NOT shift  63
-                        EXISTS shift  271
-                            LP shift  4
-                            ID shift  237
-                          CAST shift  265
-                      CTIME_KW shift  374
-                          PLUS shift  65
-                         MINUS shift  64
-                        BITNOT shift  63
-                        STRING shift  261
-                       JOIN_KW shift  262
-                          NULL shift  356
-                       INTEGER shift  358
-                         FLOAT shift  358
-                          BLOB shift  358
-                      REGISTER shift  359
-                      VARIABLE shift  360
-                     VARIABLE1 shift  361
-                          CASE shift  10
-                            nm shift  263
-                          term shift  352
-                          expr shift  42
-                      itemlist shift  248
 
 State 15:
           expr ::= expr * AND expr
@@ -932,7 +934,7 @@ State 15:
           likeop ::= * LIKE_KW
           likeop ::= * NOT LIKE_KW
           escape ::= * ESCAPE expr
-    (205) escape ::= *
+    (207) escape ::= *
           expr ::= expr * likeop expr escape
           expr ::= expr likeop expr * escape
           expr ::= expr * ISNULL|NOTNULL
@@ -963,7 +965,7 @@ State 15:
                         escape shift  397
                     between_op shift  167
                          in_op shift  128
-                     {default} reduce 205
+                     {default} reduce 207
 
 State 16:
           create_table_args ::= LP * columnlist conslist_opt RP table_opt
@@ -1010,7 +1012,7 @@ State 18:
           plus_num ::= * plus_opt number
           minus_num ::= * MINUS number
           plus_opt ::= * PLUS
-    (245) plus_opt ::= *
+    (247) plus_opt ::= *
 
                           PLUS shift  370
                          MINUS shift  166
@@ -1018,7 +1020,7 @@ State 18:
                       plus_num shift  365
                      minus_num shift  366
                       plus_opt shift  165
-                     {default} reduce 245
+                     {default} reduce 247
 
 State 19:
           typetoken ::= typename LP signed COMMA * signed RP
@@ -1027,7 +1029,7 @@ State 19:
           plus_num ::= * plus_opt number
           minus_num ::= * MINUS number
           plus_opt ::= * PLUS
-    (245) plus_opt ::= *
+    (247) plus_opt ::= *
 
                           PLUS shift  370
                          MINUS shift  166
@@ -1035,7 +1037,7 @@ State 19:
                       plus_num shift  365
                      minus_num shift  366
                       plus_opt shift  165
-                     {default} reduce 245
+                     {default} reduce 247
 
 State 20:
     (155) limit_opt ::= LIMIT expr *
@@ -1569,7 +1571,7 @@ State 29:
           expr ::= expr * in_op LP exprlist RP
           expr ::= expr * in_op LP select RP
           expr ::= expr * in_op nm dbnm
-    (234) expritem ::= expr *
+    (236) expritem ::= expr *
 
                            NOT shift  231
                             EQ shift  56
@@ -1599,7 +1601,7 @@ State 29:
                         likeop shift  61
                     between_op shift  167
                          in_op shift  128
-                     {default} reduce 234
+                     {default} reduce 236
 
 State 30:
           expr ::= expr * AND expr
@@ -1625,7 +1627,7 @@ State 30:
           expr ::= expr * in_op LP exprlist RP
           expr ::= expr * in_op LP select RP
           expr ::= expr * in_op nm dbnm
-    (230) case_operand ::= expr *
+    (232) case_operand ::= expr *
 
                            NOT shift  231
                             EQ shift  56
@@ -1655,7 +1657,7 @@ State 30:
                         likeop shift  61
                     between_op shift  167
                          in_op shift  128
-                     {default} reduce 230
+                     {default} reduce 232
 
 State 31:
           expr ::= expr * AND expr
@@ -1681,63 +1683,7 @@ State 31:
           expr ::= expr * in_op LP exprlist RP
           expr ::= expr * in_op LP select RP
           expr ::= expr * in_op nm dbnm
-    (226) case_exprlist ::= case_exprlist WHEN expr THEN expr *
-
-                           NOT shift  231
-                            EQ shift  56
-                       LIKE_KW shift  375
-                            OR shift  54
-                           AND shift  52
-                            IS shift  239
-                       BETWEEN shift  383
-                            IN shift  386
-                        ISNULL shift  380
-                       NOTNULL shift  380
-                            NE shift  56
-                            GT shift  55
-                            LE shift  55
-                            LT shift  55
-                            GE shift  55
-                        BITAND shift  57
-                         BITOR shift  57
-                        LSHIFT shift  57
-                        RSHIFT shift  57
-                          PLUS shift  58
-                         MINUS shift  58
-                          STAR shift  59
-                         SLASH shift  59
-                           REM shift  59
-                        CONCAT shift  60
-                        likeop shift  61
-                    between_op shift  167
-                         in_op shift  128
-                     {default} reduce 226
-
-State 32:
-          expr ::= expr * AND expr
-          expr ::= expr * OR expr
-          expr ::= expr * LT|GT|GE|LE expr
-          expr ::= expr * EQ|NE expr
-          expr ::= expr * BITAND|BITOR|LSHIFT|RSHIFT expr
-          expr ::= expr * PLUS|MINUS expr
-          expr ::= expr * STAR|SLASH|REM expr
-          expr ::= expr * CONCAT expr
-          likeop ::= * LIKE_KW
-          likeop ::= * NOT LIKE_KW
-          expr ::= expr * likeop expr escape
-          expr ::= expr * ISNULL|NOTNULL
-          expr ::= expr * IS NULL
-          expr ::= expr * NOT NULL
-          expr ::= expr * IS NOT NULL
-          between_op ::= * BETWEEN
-          between_op ::= * NOT BETWEEN
-          expr ::= expr * between_op between_elem AND between_elem
-          in_op ::= * IN
-          in_op ::= * NOT IN
-          expr ::= expr * in_op LP exprlist RP
-          expr ::= expr * in_op LP select RP
-          expr ::= expr * in_op nm dbnm
-    (228) case_else ::= ELSE expr *
+    (228) case_exprlist ::= case_exprlist WHEN expr THEN expr *
 
                            NOT shift  231
                             EQ shift  56
@@ -1769,7 +1715,7 @@ State 32:
                          in_op shift  128
                      {default} reduce 228
 
-State 33:
+State 32:
           expr ::= expr * AND expr
           expr ::= expr * OR expr
           expr ::= expr * LT|GT|GE|LE expr
@@ -1793,7 +1739,7 @@ State 33:
           expr ::= expr * in_op LP exprlist RP
           expr ::= expr * in_op LP select RP
           expr ::= expr * in_op nm dbnm
-    (227) case_exprlist ::= WHEN expr THEN expr *
+    (230) case_else ::= ELSE expr *
 
                            NOT shift  231
                             EQ shift  56
@@ -1823,7 +1769,63 @@ State 33:
                         likeop shift  61
                     between_op shift  167
                          in_op shift  128
-                     {default} reduce 227
+                     {default} reduce 230
+
+State 33:
+          expr ::= expr * AND expr
+          expr ::= expr * OR expr
+          expr ::= expr * LT|GT|GE|LE expr
+          expr ::= expr * EQ|NE expr
+          expr ::= expr * BITAND|BITOR|LSHIFT|RSHIFT expr
+          expr ::= expr * PLUS|MINUS expr
+          expr ::= expr * STAR|SLASH|REM expr
+          expr ::= expr * CONCAT expr
+          likeop ::= * LIKE_KW
+          likeop ::= * NOT LIKE_KW
+          expr ::= expr * likeop expr escape
+          expr ::= expr * ISNULL|NOTNULL
+          expr ::= expr * IS NULL
+          expr ::= expr * NOT NULL
+          expr ::= expr * IS NOT NULL
+          between_op ::= * BETWEEN
+          between_op ::= * NOT BETWEEN
+          expr ::= expr * between_op between_elem AND between_elem
+          in_op ::= * IN
+          in_op ::= * NOT IN
+          expr ::= expr * in_op LP exprlist RP
+          expr ::= expr * in_op LP select RP
+          expr ::= expr * in_op nm dbnm
+    (229) case_exprlist ::= WHEN expr THEN expr *
+
+                           NOT shift  231
+                            EQ shift  56
+                       LIKE_KW shift  375
+                            OR shift  54
+                           AND shift  52
+                            IS shift  239
+                       BETWEEN shift  383
+                            IN shift  386
+                        ISNULL shift  380
+                       NOTNULL shift  380
+                            NE shift  56
+                            GT shift  55
+                            LE shift  55
+                            LT shift  55
+                            GE shift  55
+                        BITAND shift  57
+                         BITOR shift  57
+                        LSHIFT shift  57
+                        RSHIFT shift  57
+                          PLUS shift  58
+                         MINUS shift  58
+                          STAR shift  59
+                         SLASH shift  59
+                           REM shift  59
+                        CONCAT shift  60
+                        likeop shift  61
+                    between_op shift  167
+                         in_op shift  128
+                     {default} reduce 229
 
 State 34:
     (157) limit_opt ::= LIMIT expr COMMA expr *
@@ -2218,63 +2220,7 @@ State 40:
                      {default} reduce 163
 
 State 41:
-    (172) itemlist ::= itemlist COMMA expr *
-          expr ::= expr * AND expr
-          expr ::= expr * OR expr
-          expr ::= expr * LT|GT|GE|LE expr
-          expr ::= expr * EQ|NE expr
-          expr ::= expr * BITAND|BITOR|LSHIFT|RSHIFT expr
-          expr ::= expr * PLUS|MINUS expr
-          expr ::= expr * STAR|SLASH|REM expr
-          expr ::= expr * CONCAT expr
-          likeop ::= * LIKE_KW
-          likeop ::= * NOT LIKE_KW
-          expr ::= expr * likeop expr escape
-          expr ::= expr * ISNULL|NOTNULL
-          expr ::= expr * IS NULL
-          expr ::= expr * NOT NULL
-          expr ::= expr * IS NOT NULL
-          between_op ::= * BETWEEN
-          between_op ::= * NOT BETWEEN
-          expr ::= expr * between_op between_elem AND between_elem
-          in_op ::= * IN
-          in_op ::= * NOT IN
-          expr ::= expr * in_op LP exprlist RP
-          expr ::= expr * in_op LP select RP
-          expr ::= expr * in_op nm dbnm
-
-                           NOT shift  231
-                            EQ shift  56
-                       LIKE_KW shift  375
-                            OR shift  54
-                           AND shift  52
-                            IS shift  239
-                       BETWEEN shift  383
-                            IN shift  386
-                        ISNULL shift  380
-                       NOTNULL shift  380
-                            NE shift  56
-                            GT shift  55
-                            LE shift  55
-                            LT shift  55
-                            GE shift  55
-                        BITAND shift  57
-                         BITOR shift  57
-                        LSHIFT shift  57
-                        RSHIFT shift  57
-                          PLUS shift  58
-                         MINUS shift  58
-                          STAR shift  59
-                         SLASH shift  59
-                           REM shift  59
-                        CONCAT shift  60
-                        likeop shift  61
-                    between_op shift  167
-                         in_op shift  128
-                     {default} reduce 172
-
-State 42:
-    (173) itemlist ::= expr *
+    (173) itemlist ::= itemlist COMMA expr *
           expr ::= expr * AND expr
           expr ::= expr * OR expr
           expr ::= expr * LT|GT|GE|LE expr
@@ -2329,7 +2275,8 @@ State 42:
                          in_op shift  128
                      {default} reduce 173
 
-State 43:
+State 42:
+    (174) itemlist ::= expr *
           expr ::= expr * AND expr
           expr ::= expr * OR expr
           expr ::= expr * LT|GT|GE|LE expr
@@ -2353,7 +2300,6 @@ State 43:
           expr ::= expr * in_op LP exprlist RP
           expr ::= expr * in_op LP select RP
           expr ::= expr * in_op nm dbnm
-    (252) variable_assignment_list ::= variable_assignment_list COMMA scope_qualifier user_var_name EQ expr *
 
                            NOT shift  231
                             EQ shift  56
@@ -2383,7 +2329,63 @@ State 43:
                         likeop shift  61
                     between_op shift  167
                          in_op shift  128
-                     {default} reduce 252
+                     {default} reduce 174
+
+State 43:
+          expr ::= expr * AND expr
+          expr ::= expr * OR expr
+          expr ::= expr * LT|GT|GE|LE expr
+          expr ::= expr * EQ|NE expr
+          expr ::= expr * BITAND|BITOR|LSHIFT|RSHIFT expr
+          expr ::= expr * PLUS|MINUS expr
+          expr ::= expr * STAR|SLASH|REM expr
+          expr ::= expr * CONCAT expr
+          likeop ::= * LIKE_KW
+          likeop ::= * NOT LIKE_KW
+          expr ::= expr * likeop expr escape
+          expr ::= expr * ISNULL|NOTNULL
+          expr ::= expr * IS NULL
+          expr ::= expr * NOT NULL
+          expr ::= expr * IS NOT NULL
+          between_op ::= * BETWEEN
+          between_op ::= * NOT BETWEEN
+          expr ::= expr * between_op between_elem AND between_elem
+          in_op ::= * IN
+          in_op ::= * NOT IN
+          expr ::= expr * in_op LP exprlist RP
+          expr ::= expr * in_op LP select RP
+          expr ::= expr * in_op nm dbnm
+    (254) variable_assignment_list ::= variable_assignment_list COMMA scope_qualifier user_var_name EQ expr *
+
+                           NOT shift  231
+                            EQ shift  56
+                       LIKE_KW shift  375
+                            OR shift  54
+                           AND shift  52
+                            IS shift  239
+                       BETWEEN shift  383
+                            IN shift  386
+                        ISNULL shift  380
+                       NOTNULL shift  380
+                            NE shift  56
+                            GT shift  55
+                            LE shift  55
+                            LT shift  55
+                            GE shift  55
+                        BITAND shift  57
+                         BITOR shift  57
+                        LSHIFT shift  57
+                        RSHIFT shift  57
+                          PLUS shift  58
+                         MINUS shift  58
+                          STAR shift  59
+                         SLASH shift  59
+                           REM shift  59
+                        CONCAT shift  60
+                        likeop shift  61
+                    between_op shift  167
+                         in_op shift  128
+                     {default} reduce 254
 
 State 44:
           expr ::= expr * AND expr
@@ -2409,7 +2411,7 @@ State 44:
           expr ::= expr * in_op LP exprlist RP
           expr ::= expr * in_op LP select RP
           expr ::= expr * in_op nm dbnm
-    (253) variable_assignment_list ::= scope_qualifier user_var_name EQ expr *
+    (255) variable_assignment_list ::= scope_qualifier user_var_name EQ expr *
 
                            NOT shift  231
                             EQ shift  56
@@ -2439,12 +2441,12 @@ State 44:
                         likeop shift  61
                     between_op shift  167
                          in_op shift  128
-                     {default} reduce 253
+                     {default} reduce 255
 
 State 45:
           expr ::= expr * AND expr
           expr ::= expr * OR expr
-    (195) expr ::= expr OR expr *
+    (197) expr ::= expr OR expr *
           expr ::= expr * LT|GT|GE|LE expr
           expr ::= expr * EQ|NE expr
           expr ::= expr * BITAND|BITOR|LSHIFT|RSHIFT expr
@@ -2494,7 +2496,7 @@ State 45:
                         likeop shift  61
                     between_op shift  167
                          in_op shift  128
-                     {default} reduce 195
+                     {default} reduce 197
 
 State 46:
           expr ::= expr * AND expr
@@ -2512,7 +2514,7 @@ State 46:
           expr ::= expr * IS NULL
           expr ::= expr * NOT NULL
           expr ::= expr * IS NOT NULL
-    (211) expr ::= NOT|BITNOT expr *
+    (213) expr ::= NOT|BITNOT expr *
           between_op ::= * BETWEEN
           between_op ::= * NOT BETWEEN
           expr ::= expr * between_op between_elem AND between_elem
@@ -2548,11 +2550,11 @@ State 46:
                         likeop shift  61
                     between_op shift  167
                          in_op shift  128
-                     {default} reduce 211
+                     {default} reduce 213
 
 State 47:
           expr ::= expr * AND expr
-    (194) expr ::= expr AND expr *
+    (196) expr ::= expr AND expr *
           expr ::= expr * OR expr
           expr ::= expr * LT|GT|GE|LE expr
           expr ::= expr * EQ|NE expr
@@ -2602,7 +2604,7 @@ State 47:
                         likeop shift  61
                     between_op shift  167
                          in_op shift  128
-                     {default} reduce 194
+                     {default} reduce 196
 
 State 48:
           nm ::= * ID
@@ -2670,7 +2672,7 @@ State 48:
                       REGISTER shift  359
                       VARIABLE shift  360
                      VARIABLE1 shift  361
-                          CASE shift  10
+                          CASE shift  11
                             nm shift  280
                           term shift  352
                           expr shift  3
@@ -2738,7 +2740,7 @@ State 49:
                       REGISTER shift  359
                       VARIABLE shift  360
                      VARIABLE1 shift  361
-                          CASE shift  10
+                          CASE shift  11
                             nm shift  263
                           term shift  352
                           expr shift  25
@@ -2808,7 +2810,7 @@ State 50:
                       REGISTER shift  359
                       VARIABLE shift  360
                      VARIABLE1 shift  361
-                          CASE shift  10
+                          CASE shift  11
                             nm shift  263
                           term shift  352
                           expr shift  20
@@ -2876,7 +2878,7 @@ State 51:
                       REGISTER shift  359
                       VARIABLE shift  360
                      VARIABLE1 shift  361
-                          CASE shift  10
+                          CASE shift  11
                             nm shift  263
                           term shift  352
                           expr shift  28
@@ -2944,7 +2946,7 @@ State 52:
                       REGISTER shift  359
                       VARIABLE shift  360
                      VARIABLE1 shift  361
-                          CASE shift  10
+                          CASE shift  11
                             nm shift  263
                           term shift  352
                           expr shift  47
@@ -3012,7 +3014,7 @@ State 53:
                       REGISTER shift  359
                       VARIABLE shift  360
                      VARIABLE1 shift  361
-                          CASE shift  10
+                          CASE shift  11
                             nm shift  263
                           term shift  352
                           expr shift  21
@@ -3080,7 +3082,7 @@ State 54:
                       REGISTER shift  359
                       VARIABLE shift  360
                      VARIABLE1 shift  361
-                          CASE shift  10
+                          CASE shift  11
                             nm shift  263
                           term shift  352
                           expr shift  45
@@ -3148,7 +3150,7 @@ State 55:
                       REGISTER shift  359
                       VARIABLE shift  360
                      VARIABLE1 shift  361
-                          CASE shift  10
+                          CASE shift  11
                             nm shift  263
                           term shift  352
                           expr shift  84
@@ -3216,7 +3218,7 @@ State 56:
                       REGISTER shift  359
                       VARIABLE shift  360
                      VARIABLE1 shift  361
-                          CASE shift  10
+                          CASE shift  11
                             nm shift  263
                           term shift  352
                           expr shift  82
@@ -3284,7 +3286,7 @@ State 57:
                       REGISTER shift  359
                       VARIABLE shift  360
                      VARIABLE1 shift  361
-                          CASE shift  10
+                          CASE shift  11
                             nm shift  263
                           term shift  352
                           expr shift  86
@@ -3352,7 +3354,7 @@ State 58:
                       REGISTER shift  359
                       VARIABLE shift  360
                      VARIABLE1 shift  361
-                          CASE shift  10
+                          CASE shift  11
                             nm shift  263
                           term shift  352
                           expr shift  87
@@ -3420,7 +3422,7 @@ State 59:
                       REGISTER shift  359
                       VARIABLE shift  360
                      VARIABLE1 shift  361
-                          CASE shift  10
+                          CASE shift  11
                             nm shift  263
                           term shift  352
                           expr shift  94
@@ -3488,7 +3490,7 @@ State 60:
                       REGISTER shift  359
                       VARIABLE shift  360
                      VARIABLE1 shift  361
-                          CASE shift  10
+                          CASE shift  11
                             nm shift  263
                           term shift  352
                           expr shift  95
@@ -3556,7 +3558,7 @@ State 61:
                       REGISTER shift  359
                       VARIABLE shift  360
                      VARIABLE1 shift  361
-                          CASE shift  10
+                          CASE shift  11
                             nm shift  263
                           term shift  352
                           expr shift  15
@@ -3624,7 +3626,7 @@ State 62:
                       REGISTER shift  359
                       VARIABLE shift  360
                      VARIABLE1 shift  361
-                          CASE shift  10
+                          CASE shift  11
                             nm shift  263
                           term shift  352
                           expr shift  85
@@ -3692,7 +3694,7 @@ State 63:
                       REGISTER shift  359
                       VARIABLE shift  360
                      VARIABLE1 shift  361
-                          CASE shift  10
+                          CASE shift  11
                             nm shift  263
                           term shift  352
                           expr shift  46
@@ -3760,7 +3762,7 @@ State 64:
                       REGISTER shift  359
                       VARIABLE shift  360
                      VARIABLE1 shift  361
-                          CASE shift  10
+                          CASE shift  11
                             nm shift  263
                           term shift  352
                           expr shift  96
@@ -3828,7 +3830,7 @@ State 65:
                       REGISTER shift  359
                       VARIABLE shift  360
                      VARIABLE1 shift  361
-                          CASE shift  10
+                          CASE shift  11
                             nm shift  263
                           term shift  352
                           expr shift  97
@@ -3896,7 +3898,7 @@ State 66:
                       REGISTER shift  359
                       VARIABLE shift  360
                      VARIABLE1 shift  361
-                          CASE shift  10
+                          CASE shift  11
                             nm shift  263
                           term shift  352
                           expr shift  22
@@ -3964,7 +3966,7 @@ State 67:
                       REGISTER shift  359
                       VARIABLE shift  360
                      VARIABLE1 shift  361
-                          CASE shift  10
+                          CASE shift  11
                             nm shift  263
                           term shift  352
                           expr shift  31
@@ -4032,7 +4034,7 @@ State 68:
                       REGISTER shift  359
                       VARIABLE shift  360
                      VARIABLE1 shift  361
-                          CASE shift  10
+                          CASE shift  11
                             nm shift  263
                           term shift  352
                           expr shift  32
@@ -4100,7 +4102,7 @@ State 69:
                       REGISTER shift  359
                       VARIABLE shift  360
                      VARIABLE1 shift  361
-                          CASE shift  10
+                          CASE shift  11
                             nm shift  263
                           term shift  352
                           expr shift  23
@@ -4168,7 +4170,7 @@ State 70:
                       REGISTER shift  359
                       VARIABLE shift  360
                      VARIABLE1 shift  361
-                          CASE shift  10
+                          CASE shift  11
                             nm shift  263
                           term shift  352
                           expr shift  33
@@ -4236,7 +4238,7 @@ State 71:
                       REGISTER shift  359
                       VARIABLE shift  360
                      VARIABLE1 shift  361
-                          CASE shift  10
+                          CASE shift  11
                             nm shift  263
                           term shift  352
                           expr shift  34
@@ -4304,7 +4306,7 @@ State 72:
                       REGISTER shift  359
                       VARIABLE shift  360
                      VARIABLE1 shift  361
-                          CASE shift  10
+                          CASE shift  11
                             nm shift  263
                           term shift  352
                           expr shift  36
@@ -4372,7 +4374,7 @@ State 73:
                       REGISTER shift  359
                       VARIABLE shift  360
                      VARIABLE1 shift  361
-                          CASE shift  10
+                          CASE shift  11
                             nm shift  263
                           term shift  352
                           expr shift  37
@@ -4440,7 +4442,7 @@ State 74:
                       REGISTER shift  359
                       VARIABLE shift  360
                      VARIABLE1 shift  361
-                          CASE shift  10
+                          CASE shift  11
                             nm shift  263
                           term shift  352
                           expr shift  38
@@ -4508,7 +4510,7 @@ State 75:
                       REGISTER shift  359
                       VARIABLE shift  360
                      VARIABLE1 shift  361
-                          CASE shift  10
+                          CASE shift  11
                             nm shift  263
                           term shift  352
                           expr shift  26
@@ -4576,7 +4578,7 @@ State 76:
                       REGISTER shift  359
                       VARIABLE shift  360
                      VARIABLE1 shift  361
-                          CASE shift  10
+                          CASE shift  11
                             nm shift  263
                           term shift  352
                           expr shift  27
@@ -4644,7 +4646,7 @@ State 77:
                       REGISTER shift  359
                       VARIABLE shift  360
                      VARIABLE1 shift  361
-                          CASE shift  10
+                          CASE shift  11
                             nm shift  263
                           term shift  352
                           expr shift  39
@@ -4712,7 +4714,7 @@ State 78:
                       REGISTER shift  359
                       VARIABLE shift  360
                      VARIABLE1 shift  361
-                          CASE shift  10
+                          CASE shift  11
                             nm shift  263
                           term shift  352
                           expr shift  40
@@ -4780,7 +4782,7 @@ State 79:
                       REGISTER shift  359
                       VARIABLE shift  360
                      VARIABLE1 shift  361
-                          CASE shift  10
+                          CASE shift  11
                             nm shift  263
                           term shift  352
                           expr shift  41
@@ -4848,7 +4850,7 @@ State 80:
                       REGISTER shift  359
                       VARIABLE shift  360
                      VARIABLE1 shift  361
-                          CASE shift  10
+                          CASE shift  11
                             nm shift  263
                           term shift  352
                           expr shift  43
@@ -4916,7 +4918,7 @@ State 81:
                       REGISTER shift  359
                       VARIABLE shift  360
                      VARIABLE1 shift  361
-                          CASE shift  10
+                          CASE shift  11
                             nm shift  263
                           term shift  352
                           expr shift  44
@@ -4926,7 +4928,7 @@ State 82:
           expr ::= expr * OR expr
           expr ::= expr * LT|GT|GE|LE expr
           expr ::= expr * EQ|NE expr
-    (197) expr ::= expr EQ|NE expr *
+    (199) expr ::= expr EQ|NE expr *
           expr ::= expr * BITAND|BITOR|LSHIFT|RSHIFT expr
           expr ::= expr * PLUS|MINUS expr
           expr ::= expr * STAR|SLASH|REM expr
@@ -4964,7 +4966,7 @@ State 82:
                         likeop shift  61
                     between_op shift  167
                          in_op shift  128
-                     {default} reduce 197
+                     {default} reduce 199
 
 State 83:
      (32) column ::= columnid type carglist *
@@ -5008,7 +5010,7 @@ State 84:
           expr ::= expr * AND expr
           expr ::= expr * OR expr
           expr ::= expr * LT|GT|GE|LE expr
-    (196) expr ::= expr LT|GT|GE|LE expr *
+    (198) expr ::= expr LT|GT|GE|LE expr *
           expr ::= expr * EQ|NE expr
           expr ::= expr * BITAND|BITOR|LSHIFT|RSHIFT expr
           expr ::= expr * PLUS|MINUS expr
@@ -5043,7 +5045,7 @@ State 84:
                         likeop shift  61
                     between_op shift  167
                          in_op shift  128
-                     {default} reduce 196
+                     {default} reduce 198
 
 State 85:
           expr ::= expr * AND expr
@@ -5056,7 +5058,7 @@ State 85:
           expr ::= expr * CONCAT expr
           likeop ::= * LIKE_KW
           likeop ::= * NOT LIKE_KW
-    (204) escape ::= ESCAPE expr *
+    (206) escape ::= ESCAPE expr *
           expr ::= expr * likeop expr escape
           expr ::= expr * ISNULL|NOTNULL
           expr ::= expr * IS NULL
@@ -5084,7 +5086,7 @@ State 85:
                         likeop shift  61
                     between_op shift  167
                          in_op shift  128
-                     {default} reduce 204
+                     {default} reduce 206
 
 State 86:
           expr ::= expr * AND expr
@@ -5092,7 +5094,7 @@ State 86:
           expr ::= expr * LT|GT|GE|LE expr
           expr ::= expr * EQ|NE expr
           expr ::= expr * BITAND|BITOR|LSHIFT|RSHIFT expr
-    (198) expr ::= expr BITAND|BITOR|LSHIFT|RSHIFT expr *
+    (200) expr ::= expr BITAND|BITOR|LSHIFT|RSHIFT expr *
           expr ::= expr * PLUS|MINUS expr
           expr ::= expr * STAR|SLASH|REM expr
           expr ::= expr * CONCAT expr
@@ -5121,7 +5123,7 @@ State 86:
                         likeop shift  61
                     between_op shift  167
                          in_op shift  128
-                     {default} reduce 198
+                     {default} reduce 200
 
 State 87:
           expr ::= expr * AND expr
@@ -5130,7 +5132,7 @@ State 87:
           expr ::= expr * EQ|NE expr
           expr ::= expr * BITAND|BITOR|LSHIFT|RSHIFT expr
           expr ::= expr * PLUS|MINUS expr
-    (199) expr ::= expr PLUS|MINUS expr *
+    (201) expr ::= expr PLUS|MINUS expr *
           expr ::= expr * STAR|SLASH|REM expr
           expr ::= expr * CONCAT expr
           likeop ::= * LIKE_KW
@@ -5156,7 +5158,7 @@ State 87:
                         likeop shift  61
                     between_op shift  167
                          in_op shift  128
-                     {default} reduce 199
+                     {default} reduce 201
 
 State 88:
           refargs ::= refargs * refarg
@@ -5266,7 +5268,7 @@ State 94:
           expr ::= expr * BITAND|BITOR|LSHIFT|RSHIFT expr
           expr ::= expr * PLUS|MINUS expr
           expr ::= expr * STAR|SLASH|REM expr
-    (200) expr ::= expr STAR|SLASH|REM expr *
+    (202) expr ::= expr STAR|SLASH|REM expr *
           expr ::= expr * CONCAT expr
           likeop ::= * LIKE_KW
           likeop ::= * NOT LIKE_KW
@@ -5288,7 +5290,7 @@ State 94:
                         likeop shift  61
                     between_op shift  167
                          in_op shift  128
-                     {default} reduce 200
+                     {default} reduce 202
 
 State 95:
           expr ::= expr * AND expr
@@ -5299,7 +5301,7 @@ State 95:
           expr ::= expr * PLUS|MINUS expr
           expr ::= expr * STAR|SLASH|REM expr
           expr ::= expr * CONCAT expr
-    (201) expr ::= expr CONCAT expr *
+    (203) expr ::= expr CONCAT expr *
           likeop ::= * LIKE_KW
           likeop ::= * NOT LIKE_KW
           expr ::= expr * likeop expr escape
@@ -5319,7 +5321,7 @@ State 95:
                         likeop shift  61
                     between_op shift  167
                          in_op shift  128
-                     {default} reduce 201
+                     {default} reduce 203
 
 State 96:
           expr ::= expr * AND expr
@@ -5337,7 +5339,7 @@ State 96:
           expr ::= expr * IS NULL
           expr ::= expr * NOT NULL
           expr ::= expr * IS NOT NULL
-    (212) expr ::= MINUS expr *
+    (214) expr ::= MINUS expr *
           between_op ::= * BETWEEN
           between_op ::= * NOT BETWEEN
           expr ::= expr * between_op between_elem AND between_elem
@@ -5350,7 +5352,7 @@ State 96:
                         likeop shift  61
                     between_op shift  167
                          in_op shift  128
-                     {default} reduce 212
+                     {default} reduce 214
 
 State 97:
           expr ::= expr * AND expr
@@ -5368,7 +5370,7 @@ State 97:
           expr ::= expr * IS NULL
           expr ::= expr * NOT NULL
           expr ::= expr * IS NOT NULL
-    (213) expr ::= PLUS expr *
+    (215) expr ::= PLUS expr *
           between_op ::= * BETWEEN
           between_op ::= * NOT BETWEEN
           expr ::= expr * between_op between_elem AND between_elem
@@ -5381,7 +5383,7 @@ State 97:
                         likeop shift  61
                     between_op shift  167
                          in_op shift  128
-                     {default} reduce 213
+                     {default} reduce 215
 
 State 98:
           id ::= * ID
@@ -5444,17 +5446,17 @@ State 100:
           scope_qualifier ::= * LOCAL
           scope_qualifier ::= * SESSION
           scope_qualifier ::= * VARIABLE1 DOT
-    (258) scope_qualifier ::= *
+    (260) scope_qualifier ::= *
 
                      VARIABLE1 shift  307
                          NAMES shift  177
                      CHARACTER shift  308
-                        GLOBAL shift  474
-                         LOCAL shift  475
-                       SESSION shift  476
+                        GLOBAL shift  476
+                         LOCAL shift  477
+                       SESSION shift  478
       variable_assignment_list shift  305
                scope_qualifier shift  118
-                     {default} reduce 258
+                     {default} reduce 260
 
 State 101:
           onconf ::= ON CONFLICT * resolvetype
@@ -5486,11 +5488,27 @@ State 102:
                             ID shift  329
                         STRING shift  330
                        JOIN_KW shift  331
-                          INTO shift  112
+                          INTO shift  113
                             nm shift  220
                       fullname shift  226
 
 State 103:
+          nm ::= * ID
+          nm ::= * STRING
+          nm ::= * JOIN_KW
+          inscollist_opt ::= LP * RP
+          inscollist_opt ::= LP * inscollist RP
+          inscollist ::= * inscollist COMMA nm
+          inscollist ::= * nm
+
+                            RP shift  470
+                            ID shift  329
+                        STRING shift  330
+                       JOIN_KW shift  331
+                            nm shift  413
+                    inscollist shift  249
+
+State 104:
       (0) input ::= cmdlist *
           cmdlist ::= cmdlist * ecmd
           ecmd ::= * SEMI
@@ -5506,7 +5524,7 @@ State 103:
                        explain shift  1
                      {default} reduce 6
 
-State 104:
+State 105:
           ids ::= * ID|STRING
           as ::= * AS nm
           as ::= * ids
@@ -5520,7 +5538,7 @@ State 104:
                             as shift  203
                      {default} reduce 120
 
-State 105:
+State 106:
           nm ::= * ID
           nm ::= * STRING
           nm ::= * JOIN_KW
@@ -5534,7 +5552,7 @@ State 105:
                             nm shift  413
                     inscollist shift  241
 
-State 106:
+State 107:
           ids ::= * ID|STRING
           as ::= * AS nm
           as ::= * ids
@@ -5548,7 +5566,7 @@ State 106:
                             as shift  205
                      {default} reduce 120
 
-State 107:
+State 108:
           nm ::= * ID
           nm ::= * STRING
           nm ::= * JOIN_KW
@@ -5561,7 +5579,7 @@ State 107:
                             nm shift  434
                        idxitem shift  208
 
-State 108:
+State 109:
           nm ::= * ID
           nm ::= * STRING
           nm ::= * JOIN_KW
@@ -5574,7 +5592,7 @@ State 108:
                             nm shift  220
                       fullname shift  462
 
-State 109:
+State 110:
           nm ::= * ID
           nm ::= * STRING
           nm ::= * JOIN_KW
@@ -5587,7 +5605,7 @@ State 109:
                             nm shift  220
                       fullname shift  221
 
-State 110:
+State 111:
           nm ::= * ID
           nm ::= * STRING
           nm ::= * JOIN_KW
@@ -5600,7 +5618,7 @@ State 110:
                             nm shift  220
                       fullname shift  297
 
-State 111:
+State 112:
           nm ::= * ID
           nm ::= * STRING
           nm ::= * JOIN_KW
@@ -5614,7 +5632,7 @@ State 111:
                             nm shift  299
                        setlist shift  176
 
-State 112:
+State 113:
           nm ::= * ID
           nm ::= * STRING
           nm ::= * JOIN_KW
@@ -5629,7 +5647,7 @@ State 112:
                             nm shift  220
                       fullname shift  224
 
-State 113:
+State 114:
           select ::= * oneselect
           select ::= * select multiselect_op oneselect
           oneselect ::= * SELECT distinct selcollist from where_opt groupby_opt having_opt orderby_opt limit_opt
@@ -5637,13 +5655,13 @@ State 113:
           cmd ::= insert_cmd INTO fullname inscollist_opt * SET setlist
           cmd ::= insert_cmd INTO fullname inscollist_opt * select
 
-                           SET shift  114
+                           SET shift  115
                         SELECT shift  163
                         VALUES shift  225
                         select shift  158
                      oneselect shift  353
 
-State 114:
+State 115:
           nm ::= * ID
           nm ::= * STRING
           nm ::= * JOIN_KW
@@ -5656,20 +5674,6 @@ State 114:
                        JOIN_KW shift  331
                             nm shift  299
                        setlist shift  302
-
-State 115:
-          nm ::= * ID
-          nm ::= * STRING
-          nm ::= * JOIN_KW
-          inscollist_opt ::= LP * inscollist RP
-          inscollist ::= * inscollist COMMA nm
-          inscollist ::= * nm
-
-                            ID shift  329
-                        STRING shift  330
-                       JOIN_KW shift  331
-                            nm shift  413
-                    inscollist shift  249
 
 State 116:
           nm ::= * ID
@@ -5693,8 +5697,8 @@ State 117:
 
                             ID shift  362
                         STRING shift  362
-                      VARIABLE shift  473
-                           ids shift  472
+                      VARIABLE shift  475
+                           ids shift  474
                  user_var_name shift  306
 
 State 118:
@@ -5705,8 +5709,8 @@ State 118:
 
                             ID shift  362
                         STRING shift  362
-                      VARIABLE shift  473
-                           ids shift  472
+                      VARIABLE shift  475
+                           ids shift  474
                  user_var_name shift  309
 
 State 119:
@@ -5929,14 +5933,14 @@ State 135:
           scope_qualifier ::= * LOCAL
           scope_qualifier ::= * SESSION
           scope_qualifier ::= * VARIABLE1 DOT
-    (258) scope_qualifier ::= *
+    (260) scope_qualifier ::= *
 
                      VARIABLE1 shift  307
-                        GLOBAL shift  474
-                         LOCAL shift  475
-                       SESSION shift  476
+                        GLOBAL shift  476
+                         LOCAL shift  477
+                       SESSION shift  478
                scope_qualifier shift  117
-                     {default} reduce 258
+                     {default} reduce 260
 
 State 136:
           nm ::= * ID
@@ -6217,13 +6221,13 @@ State 159:
           show_databes ::= SHOW * DATABASES|SCHEMAS
           show_tables ::= SHOW * full_keyword TABLES from_db
           full_keyword ::= * JOIN_KW
-    (266) full_keyword ::= *
+    (268) full_keyword ::= *
 
-                       JOIN_KW shift  485
-                     DATABASES shift  482
-                       SCHEMAS shift  482
+                       JOIN_KW shift  487
+                     DATABASES shift  484
+                       SCHEMAS shift  484
                   full_keyword shift  310
-                     {default} reduce 266
+                     {default} reduce 268
 
 State 160:
           nm ::= * ID
@@ -6234,7 +6238,7 @@ State 160:
                             ID shift  329
                         STRING shift  330
                        JOIN_KW shift  331
-                            nm shift  484
+                            nm shift  486
 
 State 161:
           cmd ::= create_table * create_table_args
@@ -6314,12 +6318,12 @@ State 169:
           expr ::= CASE case_operand case_exprlist * case_else END
           case_exprlist ::= case_exprlist * WHEN expr THEN expr
           case_else ::= * ELSE expr
-    (229) case_else ::= *
+    (231) case_else ::= *
 
                           WHEN shift  66
                           ELSE shift  68
                      case_else shift  272
-                     {default} reduce 229
+                     {default} reduce 231
 
 State 170:
           sortlist ::= sortlist COMMA sortitem collate * sortorder
@@ -6384,7 +6388,7 @@ State 175:
           tcons ::= PRIMARY KEY LP idxlist * autoinc RP onconf
           idxlist ::= idxlist * COMMA idxitem collate sortorder
 
-                         COMMA shift  107
+                         COMMA shift  108
                       AUTOINCR shift  450
                        autoinc shift  284
                      {default} reduce 66
@@ -6406,7 +6410,7 @@ State 177:
 
                             ID shift  362
                         STRING shift  362
-                           ids shift  478
+                           ids shift  480
 
 State 178:
           ids ::= * ID|STRING
@@ -6414,17 +6418,17 @@ State 178:
 
                             ID shift  362
                         STRING shift  362
-                           ids shift  479
+                           ids shift  481
 
 State 179:
           show_tables ::= SHOW full_keyword TABLES * from_db
-    (267) from_db ::= *
+    (269) from_db ::= *
           from_db ::= * FROM|IN nm
 
                             IN shift  160
                           FROM shift  160
-                       from_db shift  483
-                     {default} reduce 267
+                       from_db shift  485
+                     {default} reduce 269
 
 State 180:
           cmd ::= BEGIN * trans_opt
@@ -6629,7 +6633,7 @@ State 202:
           dbnm ::= * DOT nm
 
                            DOT shift  141
-                          dbnm shift  104
+                          dbnm shift  105
                      {default} reduce 129
 
 State 203:
@@ -6670,12 +6674,12 @@ State 206:
 
 State 207:
           ccons ::= REFERENCES nm * idxlist_opt refargs
-    (236) idxlist_opt ::= *
+    (238) idxlist_opt ::= *
           idxlist_opt ::= * LP idxlist RP
 
                             LP shift  89
                    idxlist_opt shift  229
-                     {default} reduce 236
+                     {default} reduce 238
 
 State 208:
     (148) collate ::= *
@@ -6741,12 +6745,12 @@ State 214:
 
 State 215:
           tcons ::= FOREIGN KEY LP idxlist RP REFERENCES nm * idxlist_opt refargs defer_subclause_opt
-    (236) idxlist_opt ::= *
+    (238) idxlist_opt ::= *
           idxlist_opt ::= * LP idxlist RP
 
                             LP shift  89
                    idxlist_opt shift  230
-                     {default} reduce 236
+                     {default} reduce 238
 
 State 216:
           create_table ::= CREATE * temp TABLE ifnotexists nm dbnm
@@ -6781,7 +6785,7 @@ State 219:
     (102) ifexists ::= *
 
                             IF shift  295
-                      ifexists shift  108
+                      ifexists shift  109
                      {default} reduce 102
 
 State 220:
@@ -6828,29 +6832,32 @@ State 224:
           cmd ::= insert_cmd INTO fullname * inscollist_opt VALUES valueslist
           cmd ::= insert_cmd INTO fullname * inscollist_opt SET setlist
           cmd ::= insert_cmd INTO fullname * inscollist_opt select
-    (174) inscollist_opt ::= *
+    (175) inscollist_opt ::= *
+          inscollist_opt ::= * LP RP
           inscollist_opt ::= * LP inscollist RP
 
-                            LP shift  115
-                inscollist_opt shift  113
-                     {default} reduce 174
+                            LP shift  103
+                inscollist_opt shift  114
+                     {default} reduce 175
 
 State 225:
           cmd ::= insert_cmd INTO fullname inscollist_opt VALUES * valueslist
           valueslist ::= * valueslist COMMA LP itemlist RP
           valueslist ::= * LP itemlist RP
+          valueslist ::= * LP RP
 
-                            LP shift  14
+                            LP shift  10
                     valueslist shift  300
 
 State 226:
           cmd ::= insert_cmd fullname * inscollist_opt SET setlist
-    (174) inscollist_opt ::= *
+    (175) inscollist_opt ::= *
+          inscollist_opt ::= * LP RP
           inscollist_opt ::= * LP inscollist RP
 
-                            LP shift  115
+                            LP shift  103
                 inscollist_opt shift  303
-                     {default} reduce 174
+                     {default} reduce 175
 
 State 227:
           create_table_args ::= LP columnlist conslist_opt RP * table_opt
@@ -6941,13 +6948,13 @@ State 236:
 
 State 237:
      (36) nm ::= ID *
-    (181) expr ::= ID *
+    (183) expr ::= ID *
           expr ::= ID * LP distinct exprlist RP
           expr ::= ID * LP STAR RP
 
                             LP shift  137
                            DOT reduce 36
-                     {default} reduce 181
+                     {default} reduce 183
 
 State 238:
           typetoken ::= typename LP signed * RP
@@ -6968,7 +6975,7 @@ State 240:
           exprlist ::= exprlist * COMMA expritem
 
                             RP shift  392
-                         COMMA shift  11
+                         COMMA shift  12
 
 State 241:
           using_opt ::= USING LP inscollist * RP
@@ -6982,7 +6989,7 @@ State 242:
           exprlist ::= exprlist * COMMA expritem
 
                             RP shift  420
-                         COMMA shift  11
+                         COMMA shift  12
 
 State 243:
           refact ::= SET * NULL
@@ -6996,21 +7003,21 @@ State 244:
           idxlist ::= idxlist * COMMA idxitem collate sortorder
 
                             RP shift  432
-                         COMMA shift  107
+                         COMMA shift  108
 
 State 245:
           tcons ::= UNIQUE LP idxlist * RP onconf
           idxlist ::= idxlist * COMMA idxitem collate sortorder
 
                             RP shift  213
-                         COMMA shift  107
+                         COMMA shift  108
 
 State 246:
           tcons ::= FOREIGN KEY LP idxlist * RP REFERENCES nm idxlist_opt refargs defer_subclause_opt
           idxlist ::= idxlist * COMMA idxitem collate sortorder
 
                             RP shift  289
-                         COMMA shift  107
+                         COMMA shift  108
 
 State 247:
           valueslist ::= valueslist COMMA LP itemlist * RP
@@ -7030,7 +7037,7 @@ State 249:
           inscollist_opt ::= LP inscollist * RP
           inscollist ::= inscollist * COMMA nm
 
-                            RP shift  469
+                            RP shift  471
                          COMMA shift  144
 
 State 250:
@@ -7092,17 +7099,17 @@ State 260:
 
 State 261:
      (37) nm ::= STRING *
-    (186) term ::= STRING *
+    (188) term ::= STRING *
 
                            DOT reduce 37
-                     {default} reduce 186
+                     {default} reduce 188
 
 State 262:
      (38) nm ::= JOIN_KW *
-    (182) expr ::= JOIN_KW *
+    (184) expr ::= JOIN_KW *
 
                            DOT reduce 38
-                     {default} reduce 182
+                     {default} reduce 184
 
 State 263:
           expr ::= nm * DOT nm
@@ -7111,11 +7118,11 @@ State 263:
                            DOT shift  138
 
 State 264:
-    (183) expr ::= nm DOT nm *
+    (185) expr ::= nm DOT nm *
           expr ::= nm DOT nm * DOT nm
 
                            DOT shift  139
-                     {default} reduce 183
+                     {default} reduce 185
 
 State 265:
           expr ::= CAST * LP expr AS typetoken RP
@@ -7168,7 +7175,7 @@ State 274:
     (141) orderby_opt ::= ORDER BY sortlist *
           sortlist ::= sortlist * COMMA sortitem collate sortorder
 
-                         COMMA shift  12
+                         COMMA shift  13
                      {default} reduce 141
 
 State 275:
@@ -7180,7 +7187,7 @@ State 276:
     (151) groupby_opt ::= GROUP BY exprlist *
           exprlist ::= exprlist * COMMA expritem
 
-                         COMMA shift  11
+                         COMMA shift  12
                      {default} reduce 151
 
 State 277:
@@ -7191,12 +7198,12 @@ State 277:
 State 278:
           using_opt ::= USING * LP inscollist RP
 
-                            LP shift  105
+                            LP shift  106
 
 State 279:
           seltablist ::= stl_prefix LP seltablist_paren * RP as on_opt using_opt
 
-                            RP shift  106
+                            RP shift  107
 
 State 280:
           selcollist ::= sclp nm * DOT STAR
@@ -7283,12 +7290,12 @@ State 295:
 State 296:
           cmd ::= DELETE * FROM fullname where_opt limit_opt
 
-                          FROM shift  109
+                          FROM shift  110
 
 State 297:
           cmd ::= UPDATE fullname * SET setlist where_opt limit_opt
 
-                           SET shift  111
+                           SET shift  112
 
 State 298:
           setlist ::= setlist COMMA nm * EQ expr
@@ -7310,7 +7317,7 @@ State 300:
 State 301:
           valueslist ::= valueslist COMMA * LP itemlist RP
 
-                            LP shift  13
+                            LP shift  14
 
 State 302:
           setlist ::= setlist * COMMA nm EQ expr
@@ -7332,11 +7339,11 @@ State 304:
                      {default} reduce 166
 
 State 305:
-    (249) cmd ::= SET variable_assignment_list *
+    (251) cmd ::= SET variable_assignment_list *
           variable_assignment_list ::= variable_assignment_list * COMMA scope_qualifier user_var_name EQ expr
 
                          COMMA shift  135
-                     {default} reduce 249
+                     {default} reduce 251
 
 State 306:
           variable_assignment_list ::= variable_assignment_list COMMA scope_qualifier user_var_name * EQ expr
@@ -7346,7 +7353,7 @@ State 306:
 State 307:
           scope_qualifier ::= VARIABLE1 * DOT
 
-                           DOT shift  477
+                           DOT shift  479
 
 State 308:
           cmd ::= SET CHARACTER * SET ids
@@ -7373,7 +7380,7 @@ State 311:
 State 312:
           explain ::= EXPLAIN QUERY * PLAN
 
-                          PLAN shift  486
+                          PLAN shift  488
 
 State 313:
       (1) cmdlist ::= cmdlist ecmd *
@@ -7506,19 +7513,19 @@ State 338:
                      {default} reduce 99
 
 State 339:
-    (246) raisetype ::= ROLLBACK *
-
-                     {default} reduce 246
-
-State 340:
-    (247) raisetype ::= ABORT *
-
-                     {default} reduce 247
-
-State 341:
-    (248) raisetype ::= FAIL *
+    (248) raisetype ::= ROLLBACK *
 
                      {default} reduce 248
+
+State 340:
+    (249) raisetype ::= ABORT *
+
+                     {default} reduce 249
+
+State 341:
+    (250) raisetype ::= FAIL *
+
+                     {default} reduce 250
 
 State 342:
      (59) ccons ::= NOT NULL onconf *
@@ -7571,9 +7578,9 @@ State 351:
                      {default} reduce 111
 
 State 352:
-    (178) expr ::= term *
+    (180) expr ::= term *
 
-                     {default} reduce 178
+                     {default} reduce 180
 
 State 353:
     (104) select ::= oneselect *
@@ -7591,34 +7598,34 @@ State 355:
                      {default} reduce 109
 
 State 356:
-    (180) term ::= NULL *
+    (182) term ::= NULL *
 
-                     {default} reduce 180
+                     {default} reduce 182
 
 State 357:
-    (184) expr ::= nm DOT nm DOT nm *
+    (186) expr ::= nm DOT nm DOT nm *
 
-                     {default} reduce 184
+                     {default} reduce 186
 
 State 358:
-    (185) term ::= INTEGER|FLOAT|BLOB *
-
-                     {default} reduce 185
-
-State 359:
-    (187) expr ::= REGISTER *
+    (187) term ::= INTEGER|FLOAT|BLOB *
 
                      {default} reduce 187
 
-State 360:
-    (188) expr ::= VARIABLE *
-
-                     {default} reduce 188
-
-State 361:
-    (189) expr ::= VARIABLE1 *
+State 359:
+    (189) expr ::= REGISTER *
 
                      {default} reduce 189
+
+State 360:
+    (190) expr ::= VARIABLE *
+
+                     {default} reduce 190
+
+State 361:
+    (191) expr ::= VARIABLE1 *
+
+                     {default} reduce 191
 
 State 362:
      (35) ids ::= ID|STRING *
@@ -7646,24 +7653,24 @@ State 366:
                      {default} reduce 47
 
 State 367:
-    (241) plus_num ::= plus_opt number *
-
-                     {default} reduce 241
-
-State 368:
-    (243) number ::= INTEGER|FLOAT *
+    (243) plus_num ::= plus_opt number *
 
                      {default} reduce 243
 
+State 368:
+    (245) number ::= INTEGER|FLOAT *
+
+                     {default} reduce 245
+
 State 369:
-    (242) minus_num ::= MINUS number *
-
-                     {default} reduce 242
-
-State 370:
-    (244) plus_opt ::= PLUS *
+    (244) minus_num ::= MINUS number *
 
                      {default} reduce 244
+
+State 370:
+    (246) plus_opt ::= PLUS *
+
+                     {default} reduce 246
 
 State 371:
      (45) typename ::= typename ids *
@@ -7676,74 +7683,74 @@ State 372:
                      {default} reduce 44
 
 State 373:
-    (190) expr ::= CAST LP expr AS typetoken RP *
+    (192) expr ::= CAST LP expr AS typetoken RP *
 
-                     {default} reduce 190
+                     {default} reduce 192
 
 State 374:
-    (193) term ::= CTIME_KW *
+    (195) term ::= CTIME_KW *
 
-                     {default} reduce 193
+                     {default} reduce 195
 
 State 375:
-    (202) likeop ::= LIKE_KW *
+    (204) likeop ::= LIKE_KW *
 
-                     {default} reduce 202
+                     {default} reduce 204
 
 State 376:
-    (203) likeop ::= NOT LIKE_KW *
+    (205) likeop ::= NOT LIKE_KW *
 
-                     {default} reduce 203
+                     {default} reduce 205
 
 State 377:
-    (209) expr ::= expr NOT NULL *
+    (211) expr ::= expr NOT NULL *
 
-                     {default} reduce 209
+                     {default} reduce 211
 
 State 378:
-    (215) between_op ::= NOT BETWEEN *
-
-                     {default} reduce 215
-
-State 379:
-    (219) in_op ::= NOT IN *
-
-                     {default} reduce 219
-
-State 380:
-    (207) expr ::= expr ISNULL|NOTNULL *
-
-                     {default} reduce 207
-
-State 381:
-    (208) expr ::= expr IS NULL *
-
-                     {default} reduce 208
-
-State 382:
-    (210) expr ::= expr IS NOT NULL *
-
-                     {default} reduce 210
-
-State 383:
-    (214) between_op ::= BETWEEN *
-
-                     {default} reduce 214
-
-State 384:
-    (216) between_elem ::= INTEGER|STRING *
-
-                     {default} reduce 216
-
-State 385:
-    (217) expr ::= expr between_op between_elem AND between_elem *
+    (217) between_op ::= NOT BETWEEN *
 
                      {default} reduce 217
 
-State 386:
-    (218) in_op ::= IN *
+State 379:
+    (221) in_op ::= NOT IN *
+
+                     {default} reduce 221
+
+State 380:
+    (209) expr ::= expr ISNULL|NOTNULL *
+
+                     {default} reduce 209
+
+State 381:
+    (210) expr ::= expr IS NULL *
+
+                     {default} reduce 210
+
+State 382:
+    (212) expr ::= expr IS NOT NULL *
+
+                     {default} reduce 212
+
+State 383:
+    (216) between_op ::= BETWEEN *
+
+                     {default} reduce 216
+
+State 384:
+    (218) between_elem ::= INTEGER|STRING *
 
                      {default} reduce 218
+
+State 385:
+    (219) expr ::= expr between_op between_elem AND between_elem *
+
+                     {default} reduce 219
+
+State 386:
+    (220) in_op ::= IN *
+
+                     {default} reduce 220
 
 State 387:
     (107) multiselect_op ::= UNION ALL *
@@ -7756,34 +7763,34 @@ State 388:
                      {default} reduce 108
 
 State 389:
-    (222) expr ::= expr in_op LP select RP *
-
-                     {default} reduce 222
-
-State 390:
-    (224) expr ::= EXISTS LP select RP *
+    (224) expr ::= expr in_op LP select RP *
 
                      {default} reduce 224
 
-State 391:
-    (225) expr ::= CASE case_operand case_exprlist case_else END *
+State 390:
+    (226) expr ::= EXISTS LP select RP *
 
-                     {default} reduce 225
+                     {default} reduce 226
+
+State 391:
+    (227) expr ::= CASE case_operand case_exprlist case_else END *
+
+                     {default} reduce 227
 
 State 392:
-    (220) expr ::= expr in_op LP exprlist RP *
+    (222) expr ::= expr in_op LP exprlist RP *
 
-                     {default} reduce 220
+                     {default} reduce 222
 
 State 393:
-    (232) exprlist ::= exprlist COMMA expritem *
+    (234) exprlist ::= exprlist COMMA expritem *
 
-                     {default} reduce 232
+                     {default} reduce 234
 
 State 394:
-    (233) exprlist ::= expritem *
+    (235) exprlist ::= expritem *
 
-                     {default} reduce 233
+                     {default} reduce 235
 
 State 395:
     (130) dbnm ::= DOT nm *
@@ -7791,14 +7798,14 @@ State 395:
                      {default} reduce 130
 
 State 396:
-    (223) expr ::= expr in_op nm dbnm *
+    (225) expr ::= expr in_op nm dbnm *
 
-                     {default} reduce 223
+                     {default} reduce 225
 
 State 397:
-    (206) expr ::= expr likeop expr escape *
+    (208) expr ::= expr likeop expr escape *
 
-                     {default} reduce 206
+                     {default} reduce 208
 
 State 398:
     (142) sortlist ::= sortlist COMMA sortitem collate sortorder *
@@ -7871,14 +7878,14 @@ State 411:
                      {default} reduce 138
 
 State 412:
-    (176) inscollist ::= inscollist COMMA nm *
+    (178) inscollist ::= inscollist COMMA nm *
 
-                     {default} reduce 176
+                     {default} reduce 178
 
 State 413:
-    (177) inscollist ::= nm *
+    (179) inscollist ::= nm *
 
-                     {default} reduce 177
+                     {default} reduce 179
 
 State 414:
     (126) seltablist ::= stl_prefix LP seltablist_paren RP as on_opt using_opt *
@@ -7901,24 +7908,24 @@ State 417:
                      {default} reduce 117
 
 State 418:
-    (221) expr ::= LP select RP *
+    (223) expr ::= LP select RP *
 
-                     {default} reduce 221
+                     {default} reduce 223
 
 State 419:
-    (179) expr ::= LP expr RP *
+    (181) expr ::= LP expr RP *
 
-                     {default} reduce 179
+                     {default} reduce 181
 
 State 420:
-    (191) expr ::= ID LP distinct exprlist RP *
+    (193) expr ::= ID LP distinct exprlist RP *
 
-                     {default} reduce 191
+                     {default} reduce 193
 
 State 421:
-    (192) expr ::= ID LP STAR RP *
+    (194) expr ::= ID LP STAR RP *
 
-                     {default} reduce 192
+                     {default} reduce 194
 
 State 422:
      (62) ccons ::= CHECK LP expr RP *
@@ -7971,24 +7978,24 @@ State 431:
                      {default} reduce 73
 
 State 432:
-    (237) idxlist_opt ::= LP idxlist RP *
+    (239) idxlist_opt ::= LP idxlist RP *
 
-                     {default} reduce 237
+                     {default} reduce 239
 
 State 433:
-    (238) idxlist ::= idxlist COMMA idxitem collate sortorder *
-
-                     {default} reduce 238
-
-State 434:
-    (240) idxitem ::= nm *
+    (240) idxlist ::= idxlist COMMA idxitem collate sortorder *
 
                      {default} reduce 240
 
-State 435:
-    (239) idxlist ::= idxitem collate sortorder *
+State 434:
+    (242) idxitem ::= nm *
 
-                     {default} reduce 239
+                     {default} reduce 242
+
+State 435:
+    (241) idxlist ::= idxitem collate sortorder *
+
+                     {default} reduce 241
 
 State 436:
      (64) ccons ::= defer_subclause *
@@ -8026,9 +8033,9 @@ State 442:
                      {default} reduce 54
 
 State 443:
-    (186) term ::= STRING *
+    (188) term ::= STRING *
 
-                     {default} reduce 186
+                     {default} reduce 188
 
 State 444:
      (55) carg ::= DEFAULT MINUS term *
@@ -8156,96 +8163,106 @@ State 468:
                      {default} reduce 171
 
 State 469:
-    (175) inscollist_opt ::= LP inscollist RP *
+    (172) valueslist ::= LP RP *
 
-                     {default} reduce 175
+                     {default} reduce 172
 
 State 470:
+    (176) inscollist_opt ::= LP RP *
+
+                     {default} reduce 176
+
+State 471:
+    (177) inscollist_opt ::= LP inscollist RP *
+
+                     {default} reduce 177
+
+State 472:
     (168) insert_cmd ::= INSERT *
 
                      {default} reduce 168
 
-State 471:
+State 473:
     (169) insert_cmd ::= REPLACE *
 
                      {default} reduce 169
 
-State 472:
-    (259) user_var_name ::= ids *
-
-                     {default} reduce 259
-
-State 473:
-    (260) user_var_name ::= VARIABLE *
-
-                     {default} reduce 260
-
 State 474:
-    (254) scope_qualifier ::= GLOBAL *
+    (261) user_var_name ::= ids *
 
-                     {default} reduce 254
+                     {default} reduce 261
 
 State 475:
-    (255) scope_qualifier ::= LOCAL *
+    (262) user_var_name ::= VARIABLE *
 
-                     {default} reduce 255
+                     {default} reduce 262
 
 State 476:
-    (256) scope_qualifier ::= SESSION *
+    (256) scope_qualifier ::= GLOBAL *
 
                      {default} reduce 256
 
 State 477:
-    (257) scope_qualifier ::= VARIABLE1 DOT *
+    (257) scope_qualifier ::= LOCAL *
 
                      {default} reduce 257
 
 State 478:
-    (250) cmd ::= SET NAMES ids *
+    (258) scope_qualifier ::= SESSION *
 
-                     {default} reduce 250
+                     {default} reduce 258
 
 State 479:
-    (251) cmd ::= SET CHARACTER SET ids *
+    (259) scope_qualifier ::= VARIABLE1 DOT *
 
-                     {default} reduce 251
+                     {default} reduce 259
 
 State 480:
-    (261) cmd ::= show_databes *
+    (252) cmd ::= SET NAMES ids *
 
-                     {default} reduce 261
+                     {default} reduce 252
 
 State 481:
-    (262) cmd ::= show_tables *
+    (253) cmd ::= SET CHARACTER SET ids *
 
-                     {default} reduce 262
+                     {default} reduce 253
 
 State 482:
-    (263) show_databes ::= SHOW DATABASES|SCHEMAS *
+    (263) cmd ::= show_databes *
 
                      {default} reduce 263
 
 State 483:
-    (264) show_tables ::= SHOW full_keyword TABLES from_db *
+    (264) cmd ::= show_tables *
 
                      {default} reduce 264
 
 State 484:
-    (268) from_db ::= FROM|IN nm *
-
-                     {default} reduce 268
-
-State 485:
-    (265) full_keyword ::= JOIN_KW *
+    (265) show_databes ::= SHOW DATABASES|SCHEMAS *
 
                      {default} reduce 265
 
+State 485:
+    (266) show_tables ::= SHOW full_keyword TABLES from_db *
+
+                     {default} reduce 266
+
 State 486:
+    (270) from_db ::= FROM|IN nm *
+
+                     {default} reduce 270
+
+State 487:
+    (267) full_keyword ::= JOIN_KW *
+
+                     {default} reduce 267
+
+State 488:
       (8) explain ::= EXPLAIN QUERY PLAN *
 
                      {default} reduce 8
 
-State 487:
+State 489:
       (2) cmdlist ::= ecmd *
 
                      {default} reduce 2
