@@ -1,0 +1,16 @@
+CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
+
+PROJECT(lemon_example)
+
+ADD_SUBDIRECTORY(src)
+ADD_SUBDIRECTORY(test)
+
+SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O2 -g")
+
+# add all src file to variable ROOT_SRC
+AUX_SOURCE_DIRECTORY(. ROOT_SRC)
+
+ADD_EXECUTABLE(lemon_example ${ROOT_SRC})
+
+TARGET_LINK_LIBRARIES(lemon_example lemon_parser)
+
