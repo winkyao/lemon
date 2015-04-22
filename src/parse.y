@@ -96,6 +96,7 @@ input ::= cmdlist.
 cmdlist ::= cmdlist ecmd.
 cmdlist ::= ecmd.
 cmdx ::= cmd.           { sqlite3FinishCoding(pParse); }
+cmdx ::= LP cmd RP.     { sqlite3FinishCoding(pParse); }
 ecmd ::= SEMI.
 ecmd ::= explain cmdx SEMI.
 explain ::= .           { sqlite3BeginParse(pParse, 0); }

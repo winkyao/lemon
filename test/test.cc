@@ -141,6 +141,14 @@ TEST_F(LemonTest, testSelectSimple) {
     EXPECT_EQ(parseObj_->parsed.array[0].sqltype, SQLTYPE_SELECT);
 
     sqlite3ParsedResultArrayClean(&parseObj_->parsed);
+
+    resetParseObject(parseObj_);
+    errNum = sqlite3RunParser(parseObj_, "(SELECT * FROM test WHERE id = 0);", &errMsg);
+    ASSERT_TRUE(errMsg == NULL) << "error: " << errMsg << ", error_code: " << parseObj_->rc;
+    ASSERT_EQ(errNum, 0);
+    EXPECT_EQ(parseObj_->parsed.array[0].sqltype, SQLTYPE_SELECT);
+
+    sqlite3ParsedResultArrayClean(&parseObj_->parsed);
 }
 
 TEST_F(LemonTest, testMysqlSyntax) {
