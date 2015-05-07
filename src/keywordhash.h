@@ -1,64 +1,65 @@
-/* Hash score: 174 */
+/* Hash score: 178 */
 static int keywordCode(const char *z, int n){
-  static const char zText[575] =
+  static const char zText[576] =
     "ABORTABLESCAPEACHARACTERAISELECTEMPORARYAFTEREFERENCESCHEMASESSION"
     "AMESHOWHENDATABASESTARTHENATURALEFTRANSACTIONOTNULLIKEYANALYZE"
     "LSEXCEPTRIGGEREGEXPLAINITIALLYANDEFAULTATTACHARSETAUTO_INCREMENT"
     "BEFOREIGNOREINDEXCLUSIVEXISTSTATEMENTBEGINNERENAMEBETWEENBYCASCADE"
-    "FERRABLECASECASTCHECKCOLLATECOMMITCONFLICTCONSTRAINTERSECTCREATE"
-    "CROSSCURRENT_DATECURRENT_TIMESTAMPLANDEFERREDELETEDESCDETACHAVING"
-    "LOBALIMITDISTINCTDROPRAGMATCHFAILOCALFROMFULLGROUPDATEIFIMMEDIATE"
-    "INSERTINSTEADINTOFFSETISNULLJOINORDEREPLACEOUTERESTRICTPRIMARY"
-    "QUERYRIGHTROLLBACKROWHEREUNIONUNIQUEUSINGVACUUMVALUESVIEWORK";
+    "FERRABLECASECASTATUSINGLOBALIMITCHECKCOLLATECOMMITCONFLICTCONSTRAINT"
+    "ERSECTCREATECROSSCURRENT_DATECURRENT_TIMESTAMPLANDEFERREDELETE"
+    "DESCDETACHAVINGROUPDATEDISTINCTDROPRAGMATCHFAILOCALFROMFULLIF"
+    "IMMEDIATEINSERTINSTEADINTOFFSETISNULLJOINORDEREPLACEOUTERESTRICT"
+    "PRIMARYQUERYRIGHTROLLBACKROWHEREUNIONUNIQUEVACUUMVALUESVIEWORK"
+  ;
   static const unsigned char aHash[127] = {
-     100,  88, 114,  99,   0,   9,   0,   0, 121,   0,  91,   0,   0,
-     103,  52,  78, 101,   0, 113,  18,  83,  98,  23,   8,   0,   0,
-     123,   0, 117, 110,   0,  38,   0,   0,  49,   0,   0,  68,  73,
-       0,  65,   5,   0, 112,  42, 111,  17, 115,  76,   0,   0,  54,
-       0,  79,  64,   0,  20,   0, 122,  44,  19,   0,  81,  84,  35,
-      21,   0,   0,  41,  89,  60,  40,  57,  67,  96,   0,  55,   0,
-      77,  36,   0,  74,   0,   0,   6,  66,  51,  69,  45,  95,  39,
-      71,  94,   0,   1,  85,  22, 108,  61,   7,   0, 119,  90, 106,
-      29,  26,  86,   0,   0,  48, 102,   0, 109,   0,  93,   0,   0,
-      28,   0, 116,  58,  31,   0,   2,  30,   0, 118,
+     102,  92, 116, 101,   0,   9,   0,   0, 122,   0,  95,   0,   0,
+     105,  52,  83, 103,   0, 115,  18,  88, 100,  23,   8,   0,   0,
+     124,   0, 119, 112,   0,  38,   0,   0,  49,   0,   0,  73,  78,
+       0,  65,   5,   0, 114,  42, 113,  17, 117,  81,   0,   0,  54,
+       0,  84,  64,   0,  20,   0, 123,  44,  19,   0,  86,  69,  35,
+      21,   0,   0,  41,  93,  60,  40,  57,  72,  89,   0,  55,   0,
+      82,  36,   0,  79,   0,   0,   6,  66,  51,  74,  45,  99,  39,
+      76,  98,   0,   1,  70,  22, 110,  61,   7,   0,  68,  94, 108,
+      29,  26,  71,   0,   0,  48, 104,   0, 111,   0,  97,   0,   0,
+      28,   0, 118,  58,  31,   0,   2,  30,   0, 120,
   };
-  static const unsigned char aNext[123] = {
+  static const unsigned char aNext[124] = {
        0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
        0,   0,   0,   0,  14,   0,   0,   0,   0,   0,   0,   0,  11,
        0,   0,   0,  25,   0,  13,   0,   0,   0,   0,  15,  24,   0,
        0,   0,   0,   0,   0,  12,   0,   0,   0,   0,   0,   0,   0,
        0,  10,  43,   0,   0,   0,   0,   0,  59,   0,   0,   0,  53,
-       0,   0,  62,  47,   0,   0,   0,   0,   0,   0,  75,  50,   0,
-       0,   0,   4,  63,  46,   0,   0,   0,  33,   0,  87,   0,   0,
-      70,  72,   0,  92,   0,   0,   0,   0,   0,   3,   0,   0,   0,
-     104, 105,   0,   0, 107,   0,  34,   0,  27,  37,  82,   0,  32,
-      97,  16,  56,   0,  80, 120,
+       0,  46,  16,   0,   0,   0,   0,  62,  47,   0,   0,   0,   0,
+       0,   0,  80,  50,   0,   0,   0,   4,  63,  67,   0,   0,  33,
+       0,  91,   0,   0,  75,  77,   0,  96,   0,   0,   0,   3,   0,
+       0,   0, 106, 107,   0,   0, 109,   0,  34,   0,  27,  37,  87,
+       0,  32,  90,  56,   0,  85, 121,
   };
-  static const unsigned char aLen[123] = {
+  static const unsigned char aLen[124] = {
        5,   5,   6,   6,   4,   9,   5,   6,   4,   9,   2,   5,  10,
        7,   7,   5,   4,   4,   3,   8,   9,   2,   5,   4,   7,   4,
       11,   2,   3,   7,   4,   4,   3,   7,   4,   6,   7,   6,   7,
        9,   3,   3,   7,   6,   7,   3,  14,   2,   6,   3,   7,   6,
        7,   9,   6,   9,   5,   5,   6,   7,   2,   7,   3,  10,   4,
-       4,   5,   7,   6,   8,  10,   9,   6,   5,  12,  12,  17,   4,
-       8,   6,   4,   6,   6,   4,   6,   5,   8,   2,   4,   6,   5,
-       4,   5,   4,   4,   5,   6,   2,   9,   6,   7,   4,   2,   6,
-       6,   4,   5,   7,   5,   8,   7,   5,   5,   8,   3,   5,   5,
-       6,   5,   6,   6,   4,   4,
+       4,   6,   5,   4,   6,   5,   5,   7,   6,   8,  10,   9,   6,
+       5,  12,  12,  17,   4,   8,   6,   4,   6,   6,   5,   6,   8,
+       2,   4,   6,   5,   4,   5,   4,   4,   2,   9,   6,   7,   4,
+       2,   6,   6,   4,   5,   7,   5,   8,   7,   5,   5,   8,   3,
+       5,   5,   6,   6,   6,   4,   4,
   };
-  static const unsigned short int aOffset[123] = {
+  static const unsigned short int aOffset[124] = {
        0,   4,   4,   8,  13,  15,  23,  26,  31,  31,  35,  40,  44,
       53,  59,  65,  69,  72,  74,  76,  76,  81,  84,  88,  91,  97,
      100, 109, 110, 110, 113, 116, 118, 121, 127, 130, 135, 141, 144,
      149, 154, 158, 160, 167, 171, 175, 178, 183, 192, 194, 194, 198,
      202, 207, 215, 220, 229, 232, 236, 242, 249, 251, 252, 256, 266,
-     270, 274, 279, 286, 292, 300, 307, 316, 322, 327, 339, 339, 355,
-     359, 366, 372, 376, 381, 386, 386, 391, 396, 397, 404, 407, 411,
-     416, 419, 424, 428, 432, 435, 441, 443, 452, 458, 465, 468, 468,
-     474, 480, 484, 488, 495, 499, 507, 514, 519, 524, 532, 534, 539,
-     544, 550, 555, 561, 567, 570,
+     270, 272, 276, 280, 280, 285, 290, 295, 302, 308, 316, 323, 332,
+     338, 343, 355, 355, 371, 375, 382, 388, 392, 397, 402, 405, 411,
+     412, 419, 422, 426, 431, 434, 439, 443, 447, 449, 458, 464, 471,
+     474, 474, 480, 486, 490, 494, 501, 505, 513, 520, 525, 530, 538,
+     540, 545, 550, 556, 562, 568, 571,
   };
-  static const unsigned char aCode[123] = {
+  static const unsigned char aCode[124] = {
     TK_ABORT,      TK_TABLE,      TK_TABLES,     TK_ESCAPE,     TK_EACH,       
     TK_CHARACTER,  TK_RAISE,      TK_SELECT,     TK_TEMP,       TK_TEMP,       
     TK_OR,         TK_AFTER,      TK_REFERENCES, TK_SCHEMAS,    TK_SESSION,    
@@ -72,18 +73,18 @@ static int keywordCode(const char *z, int n){
     TK_FOREIGN,    TK_IGNORE,     TK_REINDEX,    TK_EXCLUSIVE,  TK_EXISTS,     
     TK_STATEMENT,  TK_BEGIN,      TK_JOIN_KW,    TK_RENAME,     TK_BETWEEN,    
     TK_BY,         TK_CASCADE,    TK_ASC,        TK_DEFERRABLE, TK_CASE,       
-    TK_CAST,       TK_CHECK,      TK_COLLATE,    TK_COMMIT,     TK_CONFLICT,   
+    TK_CAST,       TK_STATUS,     TK_USING,      TK_LIKE_KW,    TK_GLOBAL,     
+    TK_LIMIT,      TK_CHECK,      TK_COLLATE,    TK_COMMIT,     TK_CONFLICT,   
     TK_CONSTRAINT, TK_INTERSECT,  TK_CREATE,     TK_JOIN_KW,    TK_CTIME_KW,   
     TK_CTIME_KW,   TK_CTIME_KW,   TK_PLAN,       TK_DEFERRED,   TK_DELETE,     
-    TK_DESC,       TK_DETACH,     TK_HAVING,     TK_LIKE_KW,    TK_GLOBAL,     
-    TK_LIMIT,      TK_DISTINCT,   TK_IS,         TK_DROP,       TK_PRAGMA,     
-    TK_MATCH,      TK_FAIL,       TK_LOCAL,      TK_FROM,       TK_JOIN_KW,    
-    TK_GROUP,      TK_UPDATE,     TK_IF,         TK_IMMEDIATE,  TK_INSERT,     
-    TK_INSTEAD,    TK_INTO,       TK_OF,         TK_OFFSET,     TK_ISNULL,     
-    TK_JOIN,       TK_ORDER,      TK_REPLACE,    TK_JOIN_KW,    TK_RESTRICT,   
-    TK_PRIMARY,    TK_QUERY,      TK_JOIN_KW,    TK_ROLLBACK,   TK_ROW,        
-    TK_WHERE,      TK_UNION,      TK_UNIQUE,     TK_USING,      TK_VACUUM,     
-    TK_VALUES,     TK_VIEW,       TK_WORK,       
+    TK_DESC,       TK_DETACH,     TK_HAVING,     TK_GROUP,      TK_UPDATE,     
+    TK_DISTINCT,   TK_IS,         TK_DROP,       TK_PRAGMA,     TK_MATCH,      
+    TK_FAIL,       TK_LOCAL,      TK_FROM,       TK_JOIN_KW,    TK_IF,         
+    TK_IMMEDIATE,  TK_INSERT,     TK_INSTEAD,    TK_INTO,       TK_OF,         
+    TK_OFFSET,     TK_ISNULL,     TK_JOIN,       TK_ORDER,      TK_REPLACE,    
+    TK_JOIN_KW,    TK_RESTRICT,   TK_PRIMARY,    TK_QUERY,      TK_JOIN_KW,    
+    TK_ROLLBACK,   TK_ROW,        TK_WHERE,      TK_UNION,      TK_UNIQUE,     
+    TK_VACUUM,     TK_VALUES,     TK_VIEW,       TK_WORK,       
   };
   int h, i;
   if( n<2 ) return TK_ID;

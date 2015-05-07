@@ -1273,13 +1273,19 @@ typedef enum SqlType{
     SQLTYPE_SHOW,
 }SqlType;
 
+typedef enum ShowStatementType{
+    SHOWTYPE_SHOW_DATABASES,
+    SHOWTYPE_SHOW_TABLES,
+    SHOWTYPE_SHOW_TABLE_STATUS
+}ShowStatementType;
+
 typedef union ParsedResult {
     Select* selectObj;
     Insert* insertObj;
     Delete* deleteObj;
     Update* updateObj;
     SetStatement* setObj;
-    int     showType;
+    ShowStatementType showType;
 } ParsedResult;
 
 typedef struct ParsedResultItem {
@@ -1875,7 +1881,7 @@ void sqlite3ValuesListDelete(ValuesList *valuesList);
 void sqlite3SetStatement(Parse *pParse, ExprList *pExprList, Token *pToken, SqlType sqltype);
 void sqlite3CheckSetScope(Parse *pParse, Token *pScope);
 
-void sqlite3ShowStatement(Parse *pParse, int showtype);
+void sqlite3ShowStatement(Parse *pParse, ShowStatementType showtype);
 
 #ifndef SQLITE_OMIT_SHARED_CACHE
   void sqlite3TableLock(Parse *, int, int, u8, const char *);

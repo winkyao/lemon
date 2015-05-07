@@ -159,7 +159,7 @@ TEST_F(LemonTest, testMysqlSyntax) {
     EXPECT_EQ(errNum, 0);
     EXPECT_EQ(parseObj_->parsed.array[0].sqltype, SQLTYPE_SHOW);
     int showtype = parseObj_->parsed.array[0].result.showType;
-    EXPECT_EQ(TK_DATABASES, showtype);
+    EXPECT_EQ(SHOWTYPE_SHOW_DATABASES, showtype);
     sqlite3ParsedResultArrayClean(&parseObj_->parsed);
 
     resetParseObject(parseObj_);
@@ -168,7 +168,7 @@ TEST_F(LemonTest, testMysqlSyntax) {
     ASSERT_TRUE(errMsg == NULL) << "error: " << errMsg << ", error_code: " << parseObj_->rc;
     EXPECT_EQ(parseObj_->parsed.array[0].sqltype, SQLTYPE_SHOW);
     showtype = parseObj_->parsed.array[0].result.showType;
-    EXPECT_EQ(TK_TABLES, showtype);
+    EXPECT_EQ(SHOWTYPE_SHOW_TABLES, showtype);
 
     sqlite3ParsedResultArrayClean(&parseObj_->parsed);
 
@@ -178,7 +178,7 @@ TEST_F(LemonTest, testMysqlSyntax) {
     ASSERT_TRUE(errMsg == NULL) << "error: " << errMsg << ", error_code: " << parseObj_->rc;
     EXPECT_EQ(parseObj_->parsed.array[0].sqltype, SQLTYPE_SHOW);
     showtype = parseObj_->parsed.array[0].result.showType;
-    EXPECT_EQ(TK_TABLES, showtype);
+    EXPECT_EQ(SHOWTYPE_SHOW_TABLES, showtype);
 
     sqlite3ParsedResultArrayClean(&parseObj_->parsed);
 }
@@ -1425,6 +1425,17 @@ TEST_F(LemonTest, testMultiSql) {
     EXPECT_EQ(2, parseObj->parsed.curSize);
     EXPECT_TRUE(parseObj->parsed.array[0].sqltype == SQLTYPE_SELECT && parseObj->parsed.array[0].result.selectObj != NULL);
     EXPECT_TRUE(parseObj->parsed.array[1].sqltype == SQLTYPE_INSERT && parseObj->parsed.array[1].result.insertObj != NULL);
+    sqlite3ParsedResultArrayClean(&parseObj->parsed);
+    sqlite3ParseDelete(parseObj);
+}
+
+TEST_F(LemonTest, testShowStatement) {
+    Parse *parseObj = sqlite3ParseNew();
+    char *errMsg = 0;
+    int errNum = sqlite3RunParser(parseObj, "SHOW TABLE STATUS LIKE 'sbtest';", &errMsg);    
+    ASSERT_TRUE(errMsg == NULL) << "error: " << errMsg << ", error_code: " << parseObj_->rc;
+    ASSERT_EQ(errNum, 0);
+    
     sqlite3ParsedResultArrayClean(&parseObj->parsed);
     sqlite3ParseDelete(parseObj);
 }

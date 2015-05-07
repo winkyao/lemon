@@ -2736,7 +2736,7 @@ void sqlite3CheckSetScope(Parse *pParse, Token *pScope) {
     } 
 }
 
-void sqlite3ShowStatement(Parse *pParse, int showtype) {
+void sqlite3ShowStatement(Parse *pParse, ShowStatementType showtype) {
     ParsedResultItem item;
     item.sqltype = SQLTYPE_SHOW;
     item.result.showType = showtype;

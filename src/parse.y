@@ -1149,17 +1149,25 @@ user_var_name(A) ::= VARIABLE(V). { A = V; }
 /////////////////// the SHOW statement /////////////////////////
 cmd ::= show_databes.
 cmd ::= show_tables.
+cmd ::= show_table_status.
 
-show_databes ::= SHOW DATABASES|SCHEMAS(A). {
-    sqlite3ShowStatement(pParse, @A);
+show_databes ::= SHOW DATABASES|SCHEMAS. {
+    sqlite3ShowStatement(pParse, SHOWTYPE_SHOW_DATABASES);
 }
 
-show_tables ::= SHOW full_keyword TABLES(A) from_db. {
-    sqlite3ShowStatement(pParse, @A);
+show_tables ::= SHOW full_keyword TABLES from_db. {
+    sqlite3ShowStatement(pParse, SHOWTYPE_SHOW_TABLES);
+}
+
+show_table_status ::= SHOW TABLE STATUS from_db show_table_status_pattern. {
+    sqlite3ShowStatement(pParse, SHOWTYPE_SHOW_TABLE_STATUS);
 }
 
 full_keyword ::= JOIN_KW.
 full_keyword ::= .
+
+show_table_status_pattern ::= LIKE_KW STRING|ID.
+show_table_status_pattern ::= where_opt.
 
 from_db ::= .
 from_db ::= FROM|IN nm.
