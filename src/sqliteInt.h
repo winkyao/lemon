@@ -1276,7 +1276,8 @@ typedef enum SqlType{
 typedef enum ShowStatementType{
     SHOWTYPE_SHOW_DATABASES,
     SHOWTYPE_SHOW_TABLES,
-    SHOWTYPE_SHOW_TABLE_STATUS
+    SHOWTYPE_SHOW_TABLE_STATUS,
+    SHOWTYPE_SHOW_VARIABLES
 }ShowStatementType;
 
 typedef union ParsedResult {

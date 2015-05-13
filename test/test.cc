@@ -1435,8 +1435,35 @@ TEST_F(LemonTest, testShowStatement) {
     int errNum = sqlite3RunParser(parseObj, "SHOW TABLE STATUS LIKE 'sbtest';", &errMsg);    
     ASSERT_TRUE(errMsg == NULL) << "error: " << errMsg << ", error_code: " << parseObj_->rc;
     ASSERT_EQ(errNum, 0);
+    EXPECT_EQ(SHOWTYPE_SHOW_TABLE_STATUS, parseObj->parsed.array[0].result.showType);
     
-    sqlite3ParsedResultArrayClean(&parseObj->parsed);
+    resetParseObject(parseObj);
+    errNum = sqlite3RunParser(parseObj, "SHOW VARIABLES", &errMsg);
+
+    ASSERT_TRUE(errMsg == NULL) << "error: " << errMsg << ", error_code: " << parseObj_->rc;
+    ASSERT_EQ(errNum, 0);
+    EXPECT_EQ(SHOWTYPE_SHOW_VARIABLES, parseObj->parsed.array[0].result.showType);
+
+    resetParseObject(parseObj);
+    errNum = sqlite3RunParser(parseObj, "SHOW GLOBAL VARIABLES", &errMsg);
+
+    ASSERT_TRUE(errMsg == NULL) << "error: " << errMsg << ", error_code: " << parseObj_->rc;
+    ASSERT_EQ(errNum, 0);
+    EXPECT_EQ(SHOWTYPE_SHOW_VARIABLES, parseObj->parsed.array[0].result.showType);
+
+    resetParseObject(parseObj);
+    errNum = sqlite3RunParser(parseObj, "SHOW SESSION VARIABLES LIKE 'back_log'", &errMsg);
+
+    ASSERT_TRUE(errMsg == NULL) << "error: " << errMsg << ", error_code: " << parseObj_->rc;
+    ASSERT_EQ(errNum, 0);
+    EXPECT_EQ(SHOWTYPE_SHOW_VARIABLES, parseObj->parsed.array[0].result.showType);
+    
+    resetParseObject(parseObj);
+    errNum = sqlite3RunParser(parseObj, "SHOW SESSION VARIABLES WHERE id = 1", &errMsg);
+
+    ASSERT_TRUE(errMsg == NULL) << "error: " << errMsg << ", error_code: " << parseObj_->rc;
+    ASSERT_EQ(errNum, 0);
+    EXPECT_EQ(SHOWTYPE_SHOW_VARIABLES, parseObj->parsed.array[0].result.showType);
     sqlite3ParseDelete(parseObj);
 }
 

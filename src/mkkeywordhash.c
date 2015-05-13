@@ -240,6 +240,7 @@ static Keyword aKeywordTable[] = {
   { "SCHEMAS",          "TK_SCHEMAS",      ALWAYS                 },
   { "TABLES",           "TK_TABLES",       ALWAYS                 },
   { "STATUS",           "TK_STATUS",       ALWAYS                 },
+  { "VARIABLES",        "TK_VARIABLES",    ALWAYS                 },
 };
 
 /* Number of keywords */

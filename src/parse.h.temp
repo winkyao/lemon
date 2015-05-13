@@ -143,3 +143,4 @@
 #define TK_SCHEMAS                        143
 #define TK_TABLES                         144
 #define TK_STATUS                         145
+#define TK_VARIABLES                      146

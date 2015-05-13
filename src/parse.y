@@ -1150,24 +1150,34 @@ user_var_name(A) ::= VARIABLE(V). { A = V; }
 cmd ::= show_databes.
 cmd ::= show_tables.
 cmd ::= show_table_status.
+cmd ::= show_variables.
 
-show_databes ::= SHOW DATABASES|SCHEMAS. {
+show_databes ::= SHOW DATABASES|SCHEMAS show_statement_pattern. {
     sqlite3ShowStatement(pParse, SHOWTYPE_SHOW_DATABASES);
 }
 
-show_tables ::= SHOW full_keyword TABLES from_db. {
+show_tables ::= SHOW full_keyword TABLES from_db show_statement_pattern. {
     sqlite3ShowStatement(pParse, SHOWTYPE_SHOW_TABLES);
 }
 
-show_table_status ::= SHOW TABLE STATUS from_db show_table_status_pattern. {
+show_table_status ::= SHOW TABLE STATUS from_db show_statement_pattern. {
     sqlite3ShowStatement(pParse, SHOWTYPE_SHOW_TABLE_STATUS);
+}
+
+show_variables ::= SHOW scope_qualifier VARIABLES show_statement_pattern. {
+    sqlite3ShowStatement(pParse, SHOWTYPE_SHOW_VARIABLES);
 }
 
 full_keyword ::= JOIN_KW.
 full_keyword ::= .
 
-show_table_status_pattern ::= LIKE_KW STRING|ID.
-show_table_status_pattern ::= where_opt.
+show_statement_pattern ::= LIKE_KW STRING|ID.
+show_statement_pattern ::= where_opt(A). {
+    if (A) {
+        sqlite3ExprDelete(A);
+    }
+}
 
 from_db ::= .
 from_db ::= FROM|IN nm.
+

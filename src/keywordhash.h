@@ -1,6 +1,6 @@
-/* Hash score: 178 */
+/* Hash score: 179 */
 static int keywordCode(const char *z, int n){
-  static const char zText[576] =
+  static const char zText[585] =
     "ABORTABLESCAPEACHARACTERAISELECTEMPORARYAFTEREFERENCESCHEMASESSION"
     "AMESHOWHENDATABASESTARTHENATURALEFTRANSACTIONOTNULLIKEYANALYZE"
     "LSEXCEPTRIGGEREGEXPLAINITIALLYANDEFAULTATTACHARSETAUTO_INCREMENT"
@@ -9,21 +9,21 @@ static int keywordCode(const char *z, int n){
     "ERSECTCREATECROSSCURRENT_DATECURRENT_TIMESTAMPLANDEFERREDELETE"
     "DESCDETACHAVINGROUPDATEDISTINCTDROPRAGMATCHFAILOCALFROMFULLIF"
     "IMMEDIATEINSERTINSTEADINTOFFSETISNULLJOINORDEREPLACEOUTERESTRICT"
-    "PRIMARYQUERYRIGHTROLLBACKROWHEREUNIONUNIQUEVACUUMVALUESVIEWORK"
-  ;
+    "PRIMARYQUERYRIGHTROLLBACKROWHEREUNIONUNIQUEVACUUMVALUESVARIABLES"
+    "VIEWORK";
   static const unsigned char aHash[127] = {
-     102,  92, 116, 101,   0,   9,   0,   0, 122,   0,  95,   0,   0,
+     102,  92, 116, 101,   0,   9,   0,   0, 122, 123,  95,   0,   0,
      105,  52,  83, 103,   0, 115,  18,  88, 100,  23,   8,   0,   0,
-     124,   0, 119, 112,   0,  38,   0,   0,  49,   0,   0,  73,  78,
+     125,   0, 119, 112,   0,  38,   0,   0,  49,   0,   0,  73,  78,
        0,  65,   5,   0, 114,  42, 113,  17, 117,  81,   0,   0,  54,
-       0,  84,  64,   0,  20,   0, 123,  44,  19,   0,  86,  69,  35,
+       0,  84,  64,   0,  20,   0, 124,  44,  19,   0,  86,  69,  35,
       21,   0,   0,  41,  93,  60,  40,  57,  72,  89,   0,  55,   0,
       82,  36,   0,  79,   0,   0,   6,  66,  51,  74,  45,  99,  39,
       76,  98,   0,   1,  70,  22, 110,  61,   7,   0,  68,  94, 108,
       29,  26,  71,   0,   0,  48, 104,   0, 111,   0,  97,   0,   0,
       28,   0, 118,  58,  31,   0,   2,  30,   0, 120,
   };
-  static const unsigned char aNext[124] = {
+  static const unsigned char aNext[125] = {
        0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
        0,   0,   0,   0,  14,   0,   0,   0,   0,   0,   0,   0,  11,
        0,   0,   0,  25,   0,  13,   0,   0,   0,   0,  15,  24,   0,
@@ -33,9 +33,9 @@ static int keywordCode(const char *z, int n){
        0,   0,  80,  50,   0,   0,   0,   4,  63,  67,   0,   0,  33,
        0,  91,   0,   0,  75,  77,   0,  96,   0,   0,   0,   3,   0,
        0,   0, 106, 107,   0,   0, 109,   0,  34,   0,  27,  37,  87,
-       0,  32,  90,  56,   0,  85, 121,
+       0,  32,  90,  56,   0,   0,  85, 121,
   };
-  static const unsigned char aLen[124] = {
+  static const unsigned char aLen[125] = {
        5,   5,   6,   6,   4,   9,   5,   6,   4,   9,   2,   5,  10,
        7,   7,   5,   4,   4,   3,   8,   9,   2,   5,   4,   7,   4,
       11,   2,   3,   7,   4,   4,   3,   7,   4,   6,   7,   6,   7,
@@ -45,9 +45,9 @@ static int keywordCode(const char *z, int n){
        5,  12,  12,  17,   4,   8,   6,   4,   6,   6,   5,   6,   8,
        2,   4,   6,   5,   4,   5,   4,   4,   2,   9,   6,   7,   4,
        2,   6,   6,   4,   5,   7,   5,   8,   7,   5,   5,   8,   3,
-       5,   5,   6,   6,   6,   4,   4,
+       5,   5,   6,   6,   6,   9,   4,   4,
   };
-  static const unsigned short int aOffset[124] = {
+  static const unsigned short int aOffset[125] = {
        0,   4,   4,   8,  13,  15,  23,  26,  31,  31,  35,  40,  44,
       53,  59,  65,  69,  72,  74,  76,  76,  81,  84,  88,  91,  97,
      100, 109, 110, 110, 113, 116, 118, 121, 127, 130, 135, 141, 144,
@@ -57,9 +57,9 @@ static int keywordCode(const char *z, int n){
      338, 343, 355, 355, 371, 375, 382, 388, 392, 397, 402, 405, 411,
      412, 419, 422, 426, 431, 434, 439, 443, 447, 449, 458, 464, 471,
      474, 474, 480, 486, 490, 494, 501, 505, 513, 520, 525, 530, 538,
-     540, 545, 550, 556, 562, 568, 571,
+     540, 545, 550, 556, 562, 568, 577, 580,
   };
-  static const unsigned char aCode[124] = {
+  static const unsigned char aCode[125] = {
     TK_ABORT,      TK_TABLE,      TK_TABLES,     TK_ESCAPE,     TK_EACH,       
     TK_CHARACTER,  TK_RAISE,      TK_SELECT,     TK_TEMP,       TK_TEMP,       
     TK_OR,         TK_AFTER,      TK_REFERENCES, TK_SCHEMAS,    TK_SESSION,    
@@ -84,7 +84,7 @@ static int keywordCode(const char *z, int n){
     TK_OFFSET,     TK_ISNULL,     TK_JOIN,       TK_ORDER,      TK_REPLACE,    
     TK_JOIN_KW,    TK_RESTRICT,   TK_PRIMARY,    TK_QUERY,      TK_JOIN_KW,    
     TK_ROLLBACK,   TK_ROW,        TK_WHERE,      TK_UNION,      TK_UNIQUE,     
-    TK_VACUUM,     TK_VALUES,     TK_VIEW,       TK_WORK,       
+    TK_VACUUM,     TK_VALUES,     TK_VARIABLES,  TK_VIEW,       TK_WORK,       
   };
   int h, i;
   if( n<2 ) return TK_ID;
