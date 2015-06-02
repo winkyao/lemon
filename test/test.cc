@@ -736,6 +736,24 @@ TEST_F(LemonTest, testSelectSQL_CALC_FOUND_ROWS) {
     
 }
 
+/* TEST_F(LemonTest, testSelectTableDotKey) { */
+/*     Parse *parseObj = sqlite3ParseNew(); */
+/*     char *errMsg = 0; */
+/*     int errNum = sqlite3RunParser(parseObj, "SELECT * FROM test WHERE test.id = 1", &errMsg); */    
+/*     ASSERT_TRUE(errMsg == NULL) << "error: " << errMsg << ", error_code: " << parseObj_->rc; */
+/*     ASSERT_EQ(errNum, 0); */
+/*     EXPECT_EQ(parseObj->parsed.array[0].sqltype, SQLTYPE_SELECT); */
+    
+/*     Select *selectObj = parseObj->parsed.array[0].result.selectObj; */
+/*     ASSERT_TRUE(selectObj != NULL); */
+/*     EXPECT_EQ(TK_SELECT, selectObj->op); */
+    
+/*     Expr *left_expr = selectObj->pWhere->pLeft; */
+
+
+/*     sqlite3ParseDelete(parseObj); */
+/* } */
+
 TEST_F(LemonTest, testInsertValues) {
     char *errMsg = 0;
     
@@ -1464,8 +1482,16 @@ TEST_F(LemonTest, testShowStatement) {
     ASSERT_TRUE(errMsg == NULL) << "error: " << errMsg << ", error_code: " << parseObj_->rc;
     ASSERT_EQ(errNum, 0);
     EXPECT_EQ(SHOWTYPE_SHOW_VARIABLES, parseObj->parsed.array[0].result.showType);
+
+    resetParseObject(parseObj);
+    errNum = sqlite3RunParser(parseObj, "SHOW COLLATION", &errMsg);
+
+    ASSERT_TRUE(errMsg == NULL) << "error: " << errMsg << ", error_code: " << parseObj_->rc;
+    ASSERT_EQ(errNum, 0);
+    EXPECT_EQ(SHOWTYPE_SHOW_COLLATION, parseObj->parsed.array[0].result.showType);
     sqlite3ParseDelete(parseObj);
 }
+
 
 int main(int argc, char* argv[])
 {

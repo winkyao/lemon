@@ -1151,6 +1151,7 @@ cmd ::= show_databes.
 cmd ::= show_tables.
 cmd ::= show_table_status.
 cmd ::= show_variables.
+cmd ::= show_collation.
 
 show_databes ::= SHOW DATABASES|SCHEMAS show_statement_pattern. {
     sqlite3ShowStatement(pParse, SHOWTYPE_SHOW_DATABASES);
@@ -1166,6 +1167,10 @@ show_table_status ::= SHOW TABLE STATUS from_db show_statement_pattern. {
 
 show_variables ::= SHOW scope_qualifier VARIABLES show_statement_pattern. {
     sqlite3ShowStatement(pParse, SHOWTYPE_SHOW_VARIABLES);
+}
+
+show_collation ::= SHOW COLLATION show_statement_pattern. {
+    sqlite3ShowStatement(pParse, SHOWTYPE_SHOW_COLLATION);              
 }
 
 full_keyword ::= JOIN_KW.

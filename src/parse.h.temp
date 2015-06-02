@@ -144,3 +144,4 @@
 #define TK_TABLES                         144
 #define TK_STATUS                         145
 #define TK_VARIABLES                      146
+#define TK_COLLATION                      147

@@ -241,6 +241,7 @@ static Keyword aKeywordTable[] = {
   { "TABLES",           "TK_TABLES",       ALWAYS                 },
   { "STATUS",           "TK_STATUS",       ALWAYS                 },
   { "VARIABLES",        "TK_VARIABLES",    ALWAYS                 },
+  { "COLLATION",        "TK_COLLATION",    ALWAYS                 },
 };
 
 /* Number of keywords */
