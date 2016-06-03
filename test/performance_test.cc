@@ -45,6 +45,7 @@ TEST(LemonTest, testPerformance) {
         strcmp(selectObj->pSrc->a[0].zName, "test");
         Token *pToken = findKey(selectObj->pWhere, "id");
         sqlite3SelectDelete(selectObj);
+        parseObj->parsed.array[0].result.selectObj = NULL;
     }
 
     long time_end = getTime();
